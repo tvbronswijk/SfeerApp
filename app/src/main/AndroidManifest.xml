@@ -30,6 +30,13 @@
             android:name="com.philips.lighting.quickstart.PHPushlinkActivity"
             android:label="@string/app_name">
         </activity>
+        <activity android:name=".activities.ConnectActivity">
+        </activity>
+        <activity android:name=".activities.SpacesActivity" />
+        <activity android:name=".activities.SferenActivity" />
+        <activity android:name=".activities.PersonalActivity" />
+        <activity android:name=".activities.CreateSfeerActivity" />
+        <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
 </manifest>
