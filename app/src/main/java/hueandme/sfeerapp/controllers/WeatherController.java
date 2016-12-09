@@ -24,7 +24,7 @@ public class WeatherController {
         //test
 
         try {
-            return  api.get(51.610826, 5.143930, context) - 273.15; //convert kelvin to celcius
+            return  api.get(55.610826, 5.143930, context) - 273.15; //convert kelvin to celcius
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
