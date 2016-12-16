@@ -1,4 +1,4 @@
-package questionablequality.hueme.controller;
+package com.hueandme.controller;
 
 /**
  * Created by Tobi on 16-Dec-16.

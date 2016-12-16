@@ -1,4 +1,4 @@
-package questionablequality.hueme.controller.api;
+package com.hueandme.controller.api;
 
 import android.content.Context;
 

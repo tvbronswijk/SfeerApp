@@ -1,8 +1,8 @@
-package questionablequality.hueme.controller;
+package com.hueandme.controller;
 
 import android.content.Context;
 
-import questionablequality.hueme.controller.api.WeatherAPI;
+import com.hueandme.controller.api.WeatherAPI;
 
 /**
  * Created by Tobi on 16-Dec-16.
@@ -12,7 +12,7 @@ public class WeatherController {
 
     private WeatherAPI API;
 
-    public WeatherController(Context context){
+    public WeatherController(Context context) {
         API = WeatherAPI.getInstance(context);
     }
 }
