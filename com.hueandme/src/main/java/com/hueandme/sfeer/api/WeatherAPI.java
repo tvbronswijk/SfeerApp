@@ -1,4 +1,4 @@
-package com.hueandme.controller.api;
+package com.hueandme.sfeer.api;
 
 import android.content.Context;
 
@@ -30,25 +30,6 @@ public class WeatherAPI {
         return API;
     }
 
-
-    public double getTemperature(double lat, double lon) {
-        try {
-            return get(lat, lon).getAsJsonObject("main").get("temp").getAsDouble();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            return 0.0;
-        }
-    }
-
-    public int getRain(double lat, double lon) {
-        try {
-            return get(lat, lon).getAsJsonObject("rain").get("3h").getAsInt();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
     /**
      * Retrieves the current weather from https://openweathermap.org/current.
      *
@@ -58,7 +39,7 @@ public class WeatherAPI {
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    private JsonObject get(double lat, double lon) throws ExecutionException, InterruptedException {
+    public JsonObject get(double lat, double lon) throws ExecutionException, InterruptedException {
         //main.humidity = int
         //main.pressure = int
         //main.temp_min = double
