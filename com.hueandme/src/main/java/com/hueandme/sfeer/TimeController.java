@@ -1,8 +1,5 @@
 package com.hueandme.sfeer;
 
-import android.content.Context;
-
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -13,20 +10,14 @@ import java.util.TimeZone;
 
 public class TimeController {
 
-    public TimeController()
-    {
-
-    }
-
     public enum TimeOfDay{
         Morning,
-        Noon,
         Afternoon,
         Evening,
         Night
     }
 
-    public GregorianCalendar getTime(){
+    private GregorianCalendar getTime(){
        return new GregorianCalendar(getTimeZone(), getLocale());
     }
 
@@ -43,7 +34,7 @@ public class TimeController {
         {
             return TimeOfDay.Afternoon;
         }
-        else if(getTime().HOUR_OF_DAY < 24 && getTime().HOUR_OF_DAY >= 18)
+        else
         {
             return TimeOfDay.Evening;
         }
