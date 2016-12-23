@@ -34,6 +34,27 @@
         </activity>
         <activity android:name="com.hueandme.CurrentMoodActivity">
         </activity>
+
+        <receiver android:name=".sfeer.EmotionController$EmotionReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="Happy" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="Sad" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="Angry" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="Tranquil" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="Phlegmatic" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="Comfortable" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
