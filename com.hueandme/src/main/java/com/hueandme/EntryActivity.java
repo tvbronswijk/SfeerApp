@@ -14,6 +14,7 @@ import com.hueandme.hue.AccessPointListAdapter;
 import com.hueandme.hue.HueSharedPreferences;
 import com.hueandme.hue.WizardAlertDialog;
 import com.hueandme.service.beacon.BeaconService;
+import com.hueandme.sfeer.EmotionController;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
 import com.philips.lighting.hue.sdk.PHHueSDK;
@@ -72,6 +73,7 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
         } else {
             doBridgeSearch();
         }
+        new EmotionController().fireEmotionQuery(this);
     }
 
     private PHSDKListener mPHSDKListener = new PHSDKListener() {
