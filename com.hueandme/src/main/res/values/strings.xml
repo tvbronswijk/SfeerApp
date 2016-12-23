@@ -8,6 +8,13 @@
     <string name="searching">Searching…</string>
     <string name="press_pushlink_button">Press the link button on the bridge</string>
 
+    <string name="beacon_service">Beacon Service</string>
+
+    <plurals name="beacons_found">
+        <item quantity="one">%d beacon available</item>
+        <item quantity="other">%d beacons available</item>
+    </plurals>
+
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_settings">Settings</string>
