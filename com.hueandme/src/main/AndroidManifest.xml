@@ -2,6 +2,8 @@
 <manifest package="com.hueandme"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -10,29 +12,38 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.hueandme.EntryActivity">
+        <activity android:name=".EntryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.hueandme.ConnectActivity">
+        <activity android:name=".ConnectActivity">
         </activity>
         <activity
-            android:name="com.hueandme.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name="com.hueandme.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="com.hueandme.MainActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hueandme.MainActivity"/>
         </activity>
-        <activity android:name="com.hueandme.CurrentMoodActivity">
+        <activity android:name=".CurrentMoodActivity">
+        </activity>
+
+        <service
+            android:name=".service.beacon.BeaconService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <activity android:name=".BeaconActivity">
         </activity>
 
         <receiver android:name=".sfeer.EmotionController$EmotionReceiver" android:exported="false">

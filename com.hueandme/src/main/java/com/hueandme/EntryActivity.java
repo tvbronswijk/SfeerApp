@@ -13,6 +13,7 @@ import com.hueandme.databinding.ActivityEntryBinding;
 import com.hueandme.hue.AccessPointListAdapter;
 import com.hueandme.hue.HueSharedPreferences;
 import com.hueandme.hue.WizardAlertDialog;
+import com.hueandme.service.beacon.BeaconService;
 import com.hueandme.sfeer.EmotionController;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHBridgeSearchManager;
@@ -43,6 +44,8 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_entry);
+
+        startService(new Intent(this, BeaconService.class));
 
         mHueSDK = PHHueSDK.create();
 
