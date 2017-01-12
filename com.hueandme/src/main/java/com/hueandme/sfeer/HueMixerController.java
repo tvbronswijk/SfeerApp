@@ -69,6 +69,14 @@ public class HueMixerController {
             {
                 RGBred -= 50;
             }
+            if(weather.getRain(latitude, longitude) > 0)
+            {
+                RGBblue -= 50;
+            }
+            else if(weather.getRain(latitude, longitude) < 0)
+            {
+                RGBblue += 50;
+            }
         }
         catch(SecurityException ex)
         {
