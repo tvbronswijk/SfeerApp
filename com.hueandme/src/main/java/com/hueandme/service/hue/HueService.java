@@ -16,6 +16,8 @@ import com.hueandme.position.Position;
 import com.hueandme.position.Room;
 import com.hueandme.service.beacon.BeaconService;
 import com.hueandme.service.beacon.OnRoomChangedListener;
+import com.hueandme.sfeer.HueMixerController;
+import com.hueandme.sfeer.SfeerConfiguration;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
 import com.philips.lighting.hue.sdk.PHHueSDK;
 import com.philips.lighting.hue.sdk.PHSDKListener;
@@ -24,6 +26,7 @@ import com.philips.lighting.model.PHGroup;
 import com.philips.lighting.model.PHHueParsingError;
 import com.philips.lighting.model.PHLightState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HueService extends Service implements OnRoomChangedListener {
@@ -34,6 +37,7 @@ public class HueService extends Service implements OnRoomChangedListener {
     private final IBinder mBinder = new HueBinder();
 
     private BeaconService mBeaconService;
+    private HueMixerController mMixerController;
 
     private PHHueSDK mHueSDK;
     private PHBridge mSelectedBridge;
@@ -61,6 +65,15 @@ public class HueService extends Service implements OnRoomChangedListener {
         Intent beaconIntent = new Intent(this, BeaconService.class);
         startService(beaconIntent);
         bindService(beaconIntent, mBeaconServiceConnection, 0);
+
+        List<SfeerConfiguration.Setting> settings = new ArrayList<>();
+        settings.add(SfeerConfiguration.Setting.Emotion);
+        settings.add(SfeerConfiguration.Setting.Time);
+        settings.add(SfeerConfiguration.Setting.Weather);
+
+        SfeerConfiguration sfeerConfiguration = new SfeerConfiguration();
+        sfeerConfiguration.setSettings(settings);
+        mMixerController = new HueMixerController(this, sfeerConfiguration);
     }
 
     @Override
@@ -105,12 +118,12 @@ public class HueService extends Service implements OnRoomChangedListener {
 
     private void updateLights(String hueGroupId) {
         if (mSelectedBridge != null) {
+            float[] xyValues = mMixerController.getSfeer();
+
             PHLightState lightStateOn = new PHLightState();
             lightStateOn.setOn(true);
-            // TODO Get light values
-            lightStateOn.setHue(500);
-            lightStateOn.setSaturation(254);
-            lightStateOn.setBrightness(254);
+            lightStateOn.setX(xyValues[0]);
+            lightStateOn.setY(xyValues[1]);
 
             PHLightState lightStateOff = new PHLightState();
             lightStateOff.setOn(false);
