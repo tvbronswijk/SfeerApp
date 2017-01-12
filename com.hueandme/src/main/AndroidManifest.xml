@@ -34,7 +34,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.hueandme.MainActivity"/>
         </activity>
-        <activity android:name=".CurrentMoodActivity">
+        <activity android:name=".SfeerSettingsActivity">
         </activity>
 
         <service

@@ -9,7 +9,7 @@ import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
-import com.hueandme.CurrentMoodActivity;
+import com.hueandme.SfeerSettingsActivity;
 import com.hueandme.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -82,7 +82,7 @@ public class EmotionController {
                 .setContentTitle("Hue & Me")
                 .setWhen(System.currentTimeMillis());
 
-        Intent notificationIntent = new Intent(context, CurrentMoodActivity.class);
+        Intent notificationIntent = new Intent(context, SfeerSettingsActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         mNotificationManager.notify(1, notificationBuilder.build());
