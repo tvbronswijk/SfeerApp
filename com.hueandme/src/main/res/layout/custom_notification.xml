@@ -40,13 +40,8 @@
         android:text="phlegmatic"
         style="@style/notification_button_style" />
     <Button
-        android:id="@+id/tranquilbutton"
-        android:layout_toRightOf="@+id/phlegmaticbutton"
-        android:text="tranquil"
-        style="@style/notification_button_style" />
-    <Button
         android:id="@+id/comfortbutton"
-        android:layout_toRightOf="@+id/tranquilbutton"
+        android:layout_toRightOf="@+id/phlegmaticbutton"
         android:text="comfortable"
         style="@style/notification_button_style" />
 </RelativeLayout>
