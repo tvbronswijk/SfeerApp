@@ -20,14 +20,11 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class EmotionController {
 
-    private Emotion currentEmotion;
-
     public enum Emotion {
         Happy,
         Sad,
         Angry,
         Phlegmatic,
-        Tranquil,
         Comfortable
     }
 
@@ -41,16 +38,16 @@ public class EmotionController {
         return controller;
     }
 
-    public Emotion getEmotion(){
-        return currentEmotion;
+    public static Emotion getEmotion(Context context){
+        return Emotion.values()[context.getSharedPreferences("emoticons", 0).getInt("emotion", 0)];
     }
 
-    public void setCurrentEmotion(Emotion emotion){
-        currentEmotion = emotion;
+    public static void setCurrentEmotion(Context context, Emotion emotion){
+        context.getSharedPreferences("emoticons", 0).edit().putInt("emotion", emotion.ordinal()).apply();
     }
 
     /**
-     * Creates custom notification with 6 buttons. Change the android Manifest in case the layout changes.
+     * Creates custom notification with 5 buttons. Change the android Manifest in case the layout changes.
      * @param context
      */
     public void fireEmotionQuery(Context context){
@@ -60,7 +57,6 @@ public class EmotionController {
         PendingIntent pendingSadIntent = PendingIntent.getBroadcast(context, 0, new Intent("Sad"), 0);
         PendingIntent pendingAngerIntent = PendingIntent.getBroadcast(context, 0, new Intent("Angry"), 0);
         PendingIntent pendingPhlegmIntent = PendingIntent.getBroadcast(context, 0, new Intent("Phlegmatic"), 0);
-        PendingIntent pendingTranqIntent = PendingIntent.getBroadcast(context, 0, new Intent("Tranquil"), 0);
         PendingIntent pendingComfortIntent = PendingIntent.getBroadcast(context, 0, new Intent("Comfortable"), 0);
 
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
@@ -73,7 +69,6 @@ public class EmotionController {
         contentView.setOnClickPendingIntent(R.id.sadbutton, pendingSadIntent);
         contentView.setOnClickPendingIntent(R.id.angrybutton, pendingAngerIntent);
         contentView.setOnClickPendingIntent(R.id.phlegmaticbutton, pendingPhlegmIntent);
-        contentView.setOnClickPendingIntent(R.id.tranquilbutton, pendingTranqIntent);
         contentView.setOnClickPendingIntent(R.id.comfortbutton, pendingComfortIntent);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
@@ -85,7 +80,7 @@ public class EmotionController {
         Intent notificationIntent = new Intent(context, SfeerSettingsActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
-        mNotificationManager.notify(1, notificationBuilder.build());
+        mNotificationManager.notify(3, notificationBuilder.build());
     }
 
     public static class EmotionReceiver extends BroadcastReceiver {
@@ -93,8 +88,8 @@ public class EmotionController {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            EmotionController.getInstance().setCurrentEmotion(Emotion.valueOf(intent.getAction()));
-            System.out.println("Your current emotion is: " + EmotionController.getInstance().getEmotion().toString());
+            setCurrentEmotion(context, Emotion.valueOf(intent.getAction()));
+            System.out.println("Your current emotion is: " + getEmotion(context).toString());
             ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE)).cancel(1);
         }
     }

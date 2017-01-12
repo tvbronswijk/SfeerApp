@@ -11,25 +11,18 @@ import android.util.Log;
 
 import com.hueandme.databinding.ActivityBeaconBinding;
 import com.hueandme.service.beacon.BeaconService;
-import com.hueandme.service.beacon.OnBeaconStatusChangedListener;
 
-import org.altbeacon.beacon.Beacon;
-
-public class BeaconActivity extends AppCompatActivity implements OnBeaconStatusChangedListener {
+public class BeaconActivity extends AppCompatActivity {
 
     private ActivityBeaconBinding mBinding;
 
     private BeaconService mBeaconService;
-    private BeaconListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_beacon);
-
-        mAdapter = new BeaconListAdapter(this);
-        mBinding.lstBeacons.setAdapter(mAdapter);
     }
 
     @Override
@@ -46,7 +39,8 @@ public class BeaconActivity extends AppCompatActivity implements OnBeaconStatusC
         super.onPause();
 
         if (mBeaconService != null) {
-            mBeaconService.removeBeaconStatusChangedListener(this);
+            mBeaconService.removeBeaconStatusChangedListener(mBinding.map);
+            mBeaconService.removeRoomChangedListener(mBinding.map);
             try {
                 unbindService(mBeaconServiceConnection);
             } catch (IllegalArgumentException e) {
@@ -59,7 +53,11 @@ public class BeaconActivity extends AppCompatActivity implements OnBeaconStatusC
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             mBeaconService = ((BeaconService.BeaconBinder) service).getService();
-            mBeaconService.addBeaconStatusChangedListener(BeaconActivity.this);
+            mBeaconService.addBeaconStatusChangedListener(mBinding.map);
+            mBeaconService.addRoomChangedListener(mBinding.map);
+
+            mBinding.map.setRooms(mBeaconService.getRooms());
+            mBinding.map.setBeaconPositions(mBeaconService.getBeaconPositions());
         }
 
         @Override
@@ -67,22 +65,4 @@ public class BeaconActivity extends AppCompatActivity implements OnBeaconStatusC
             mBeaconService = null;
         }
     };
-
-    @Override
-    public void onBeaconFound(Beacon beacon) {
-        mAdapter.addItem(beacon);
-        Log.d("BeaconActivity", "Found beacon");
-    }
-
-    @Override
-    public void onBeaconLost(Beacon beacon) {
-        mAdapter.removeItem(beacon);
-        Log.d("BeaconActivity", "Lost beacon");
-    }
-
-    @Override
-    public void onRangeChanged(Beacon beacon) {
-        mAdapter.addItem(beacon);
-        Log.d("BeaconActivity", "Changed beacon");
-    }
 }

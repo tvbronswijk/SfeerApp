@@ -16,6 +16,9 @@ import android.util.Log;
 
 import com.hueandme.BeaconActivity;
 import com.hueandme.R;
+import com.hueandme.position.BeaconPosition;
+import com.hueandme.position.Position;
+import com.hueandme.position.Room;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -23,10 +26,12 @@ import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,6 +51,12 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
 
     private final Map<Beacon, Long> mBeacons = new HashMap<>();
 
+    private final List<Room> mRooms = new ArrayList<>();
+    private final List<Beacon> mBeaconsFound = new ArrayList<>();
+    private final List<BeaconPosition> mBeaconPositions = new ArrayList<>();
+    private Position mPosition;
+    private Room mActiveRoom = null;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -58,6 +69,21 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
         Log.d(TAG, "Starting Beacon service");
 
         startForeground(ONGOING_NOTIFICATION_ID, getNotification());
+
+        Room roomLivingRoom = new Room(1, "Living Room", 0, 0, 5, 10);
+        roomLivingRoom.setHueGroupId("1");
+        mRooms.add(roomLivingRoom);
+
+        Room roomKitchen = new Room(2, "Kitchen", 5, 0, 9, 9);
+        roomKitchen.setHueGroupId("2");
+        mRooms.add(roomKitchen);
+
+        mBeaconPositions.add(new BeaconPosition(5, 1, "e584fbcb-829c-48b2-88cc-f7142b926aea"));
+        mBeaconPositions.add(new BeaconPosition(5, 5, "e584fbcb-829c-48b2-88cc-f7142b926aeb"));
+        mBeaconPositions.add(new BeaconPosition(3, 6, "e584fbcb-829c-48b2-88cc-f7142b926aec"));
+
+        mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aeb").setTxPower(-66).setRssi(-60).build());
+        mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aec").setTxPower(-66).setRssi(-62).build());
 
         mBeaconManager = BeaconManager.getInstanceForApplication(this);
         mBeaconManager.bind(this);
@@ -79,9 +105,13 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
         Intent notificationIntent = new Intent(this, BeaconActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
+        String contentText = getResources().getQuantityString(R.plurals.beacons_found, mBeacons.size(), mBeacons.size());
+        if (mActiveRoom != null) {
+            contentText += "; " + getResources().getString(R.string.current_room, mActiveRoom.getName());
+        }
         return new Notification.Builder(this)
                 .setContentTitle(getString(R.string.beacon_service))
-                .setContentText(getResources().getQuantityString(R.plurals.beacons_found, mBeacons.size(), mBeacons.size()))
+                .setContentText(contentText)
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(R.drawable.ic_bluetooth)
                 .setPriority(Notification.PRIORITY_MIN)
@@ -153,19 +183,95 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
         return mBeaconStatusChangedListeners.remove(listener);
     }
 
+    public boolean addRoomChangedListener(OnRoomChangedListener listener) {
+        return mRoomChangedListeners.add(listener);
+    }
+
+    public boolean removeRoomChangedListener(OnRoomChangedListener listener) {
+        return mRoomChangedListeners.remove(listener);
+    }
+
     @Override
     public void onBeaconFound(Beacon beacon) {
+        mBeaconsFound.add(beacon);
+
         updateNotification();
     }
 
     @Override
     public void onBeaconLost(Beacon beacon) {
+        mBeaconsFound.remove(beacon);
+
+        if (mBeaconsFound.size() < 3) {
+            mPosition = null;
+            mActiveRoom = null;
+
+            for (final OnRoomChangedListener listener : mRoomChangedListeners) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onRoomChanged(mActiveRoom, mPosition);
+                    }
+                });
+            }
+        }
+
         updateNotification();
     }
 
     @Override
     public void onRangeChanged(Beacon beacon) {
+        mBeaconsFound.remove(beacon);
+        mBeaconsFound.add(beacon);
+
+        if (mBeaconsFound.size() >= 3) {
+            mPosition = Position.getByTrilateration(
+                    getPositionForBeacon(mBeaconsFound.get(0)), mBeaconsFound.get(0).getDistance() * 5,
+                    getPositionForBeacon(mBeaconsFound.get(1)), mBeaconsFound.get(1).getDistance() * 5,
+                    getPositionForBeacon(mBeaconsFound.get(2)), mBeaconsFound.get(2).getDistance() * 5
+            );
+
+            mActiveRoom = null;
+
+            for (Room room : mRooms) {
+                if (room.contains(mPosition)) {
+                    mActiveRoom = room;
+                    break;
+                }
+            }
+        } else {
+            mPosition = null;
+            mActiveRoom = null;
+        }
+
+        for (final OnRoomChangedListener listener : mRoomChangedListeners) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    listener.onRoomChanged(mActiveRoom, mPosition);
+                }
+            });
+        }
+
         updateNotification();
+    }
+
+    private Position getPositionForBeacon(Beacon beacon) {
+        for (BeaconPosition beaconPosition : mBeaconPositions) {
+            if (beacon.getId1().toString().equals(beaconPosition.getIdentifier())) {
+                return beaconPosition;
+            }
+        }
+
+        return null;
+    }
+
+    public List<Room> getRooms() {
+        return new ArrayList<>(mRooms);
+    }
+
+    public List<BeaconPosition> getBeaconPositions() {
+        return new ArrayList<>(mBeaconPositions);
     }
 
     public class BeaconBinder extends Binder {
