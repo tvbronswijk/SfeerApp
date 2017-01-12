@@ -70,15 +70,20 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
 
         startForeground(ONGOING_NOTIFICATION_ID, getNotification());
 
-        mRooms.add(new Room(1, "Living Room", 0, 0, 5, 10));
-        mRooms.add(new Room(2, "Kitchen", 5, 0, 7, 6));
+        Room roomLivingRoom = new Room(1, "Living Room", 0, 0, 5, 10);
+        roomLivingRoom.setHueGroupId("1");
+        mRooms.add(roomLivingRoom);
 
-        mBeaconPositions.add(new BeaconPosition(1, 2, "e584fbcb-829c-48b2-88cc-f7142b926aea"));
+        Room roomKitchen = new Room(2, "Kitchen", 5, 0, 9, 9);
+        roomKitchen.setHueGroupId("2");
+        mRooms.add(roomKitchen);
+
+        mBeaconPositions.add(new BeaconPosition(5, 1, "e584fbcb-829c-48b2-88cc-f7142b926aea"));
         mBeaconPositions.add(new BeaconPosition(5, 5, "e584fbcb-829c-48b2-88cc-f7142b926aeb"));
         mBeaconPositions.add(new BeaconPosition(3, 6, "e584fbcb-829c-48b2-88cc-f7142b926aec"));
 
-        mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aeb").setTxPower(-66).setRssi(-58).build());
-        mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aec").setTxPower(-66).setRssi(-54).build());
+        mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aeb").setTxPower(-66).setRssi(-60).build());
+        mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aec").setTxPower(-66).setRssi(-62).build());
 
         mBeaconManager = BeaconManager.getInstanceForApplication(this);
         mBeaconManager.bind(this);
@@ -197,6 +202,20 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
     public void onBeaconLost(Beacon beacon) {
         mBeaconsFound.remove(beacon);
 
+        if (mBeaconsFound.size() < 3) {
+            mPosition = null;
+            mActiveRoom = null;
+
+            for (final OnRoomChangedListener listener : mRoomChangedListeners) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onRoomChanged(mActiveRoom, mPosition);
+                    }
+                });
+            }
+        }
+
         updateNotification();
     }
 
@@ -207,9 +226,9 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
 
         if (mBeaconsFound.size() >= 3) {
             mPosition = Position.getByTrilateration(
-                    getPositionForBeacon(mBeaconsFound.get(0)), mBeaconsFound.get(0).getDistance() * 2,
-                    getPositionForBeacon(mBeaconsFound.get(1)), mBeaconsFound.get(1).getDistance() * 2,
-                    getPositionForBeacon(mBeaconsFound.get(2)), mBeaconsFound.get(2).getDistance() * 2
+                    getPositionForBeacon(mBeaconsFound.get(0)), mBeaconsFound.get(0).getDistance() * 5,
+                    getPositionForBeacon(mBeaconsFound.get(1)), mBeaconsFound.get(1).getDistance() * 5,
+                    getPositionForBeacon(mBeaconsFound.get(2)), mBeaconsFound.get(2).getDistance() * 5
             );
 
             mActiveRoom = null;

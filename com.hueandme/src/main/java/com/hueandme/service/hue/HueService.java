@@ -94,11 +94,12 @@ public class HueService extends Service implements OnRoomChangedListener {
         if (mRoom != room) {
             mRoom = room;
 
+            String hueGroupId = "";
             if (mRoom != null) {
-                String hueGroupId = mRoom.getHueGroupId();
-
-                updateLights(hueGroupId);
+                hueGroupId = mRoom.getHueGroupId();
             }
+
+            updateLights(hueGroupId);
         }
     }
 
@@ -107,18 +108,18 @@ public class HueService extends Service implements OnRoomChangedListener {
             PHLightState lightStateOn = new PHLightState();
             lightStateOn.setOn(true);
             // TODO Get light values
-            //lightStateOn.setHue();
-            //lightStateOn.setSaturation();
-            //lightStateOn.setBrightness();
+            lightStateOn.setHue(500);
+            lightStateOn.setSaturation(254);
+            lightStateOn.setBrightness(254);
 
             PHLightState lightStateOff = new PHLightState();
             lightStateOff.setOn(false);
 
             for (PHGroup group : mSelectedBridge.getResourceCache().getAllGroups()) {
-                if (group.getUniqueId().equals(hueGroupId)) {
+                if (group.getIdentifier().equals(hueGroupId)) {
                     mSelectedBridge.setLightStateForGroup(hueGroupId, lightStateOn);
                 } else {
-                    mSelectedBridge.setLightStateForGroup(group.getUniqueId(), lightStateOff);
+                    mSelectedBridge.setLightStateForGroup(group.getIdentifier(), lightStateOff);
                 }
             }
         }
