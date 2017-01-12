@@ -40,6 +40,7 @@ public class BeaconActivity extends AppCompatActivity {
 
         if (mBeaconService != null) {
             mBeaconService.removeBeaconStatusChangedListener(mBinding.map);
+            mBeaconService.removeRoomChangedListener(mBinding.map);
             try {
                 unbindService(mBeaconServiceConnection);
             } catch (IllegalArgumentException e) {
@@ -53,6 +54,10 @@ public class BeaconActivity extends AppCompatActivity {
         public void onServiceConnected(ComponentName name, IBinder service) {
             mBeaconService = ((BeaconService.BeaconBinder) service).getService();
             mBeaconService.addBeaconStatusChangedListener(mBinding.map);
+            mBeaconService.addRoomChangedListener(mBinding.map);
+
+            mBinding.map.setRooms(mBeaconService.getRooms());
+            mBinding.map.setBeaconPositions(mBeaconService.getBeaconPositions());
         }
 
         @Override

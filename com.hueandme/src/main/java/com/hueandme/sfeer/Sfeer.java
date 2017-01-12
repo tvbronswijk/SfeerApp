@@ -8,7 +8,7 @@ public class Sfeer {
     int kleur;
     //Lamp lamp;
 
-    public void setLamps(Lamp lamp , int kleur){
+    public void setLamps(/*Lamp lamp , int kleur*/){
         throw new UnsupportedOperationException();
     }
 }
