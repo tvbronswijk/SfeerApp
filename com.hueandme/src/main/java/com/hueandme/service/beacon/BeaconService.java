@@ -23,6 +23,7 @@ import com.hueandme.position.Room;
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
+import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 
@@ -79,13 +80,14 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
         mRooms.add(roomKitchen);
 
         mBeaconPositions.add(new BeaconPosition(5, 1, "e584fbcb-829c-48b2-88cc-f7142b926aea"));
-        mBeaconPositions.add(new BeaconPosition(5, 5, "e584fbcb-829c-48b2-88cc-f7142b926aeb"));
+        mBeaconPositions.add(new BeaconPosition(5, 5, "0x00010203040506070809"));
         mBeaconPositions.add(new BeaconPosition(3, 6, "e584fbcb-829c-48b2-88cc-f7142b926aec"));
 
-        mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aeb").setTxPower(-66).setRssi(-60).build());
+        //mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aeb").setTxPower(-66).setRssi(-60).build());
         mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aec").setTxPower(-66).setRssi(-62).build());
 
         mBeaconManager = BeaconManager.getInstanceForApplication(this);
+        mBeaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout(BeaconParser.EDDYSTONE_UID_LAYOUT));
         mBeaconManager.bind(this);
 
         addBeaconStatusChangedListener(this);
@@ -151,9 +153,11 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
                     mBeacons.put(beacon, SystemClock.elapsedRealtime());
                 }
 
+                List<Beacon> toRemove = new ArrayList<>();
+
                 for (final Map.Entry<Beacon, Long> beaconEntry : mBeacons.entrySet()) {
                     if (SystemClock.elapsedRealtime() - beaconEntry.getValue() > BEACON_INTERVAL) {
-                        mBeacons.remove(beaconEntry.getKey());
+                        toRemove.add(beaconEntry.getKey());
 
                         for (final OnBeaconStatusChangedListener listener : mBeaconStatusChangedListeners) {
                             handler.post(new Runnable() {
@@ -164,6 +168,10 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
                             });
                         }
                     }
+                }
+
+                for (Beacon beacon : toRemove) {
+                    mBeacons.remove(beacon);
                 }
             }
         });
@@ -193,6 +201,7 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
 
     @Override
     public void onBeaconFound(Beacon beacon) {
+        Log.d(TAG, "Found " + beacon.getId1().toString());
         mBeaconsFound.add(beacon);
 
         updateNotification();
