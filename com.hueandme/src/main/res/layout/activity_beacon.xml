@@ -12,8 +12,8 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="com.hueandme.BeaconActivity">
 
-        <ListView
-            android:id="@+id/lst_beacons"
+        <com.hueandme.view.MapView
+            android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
