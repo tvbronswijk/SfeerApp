@@ -110,30 +110,30 @@ public class HueMixerController {
      */
     private void handleEmotion()
     {
-        if(emotion.getEmotion() == EmotionController.Emotion.Angry)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Angry)
         {
             RGBgreen += 50;
             RGBblue += 50;
         }
 
-        if(emotion.getEmotion() == EmotionController.Emotion.Comfortable)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Comfortable)
         {
             RGBblue -= 50;
             RGBgreen -= 50;
         }
 
-        if(emotion.getEmotion() == EmotionController.Emotion.Happy)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Happy)
         {
             RGBred += 50;
         }
 
-        if(emotion.getEmotion() == EmotionController.Emotion.Phlegmatic)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Phlegmatic)
         {
             RGBgreen -= 50;
             RGBblue -= 50;
         }
 
-        if(emotion.getEmotion() == EmotionController.Emotion.Sad)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Sad)
         {
             RGBred += 50;
             RGBgreen += 50;
