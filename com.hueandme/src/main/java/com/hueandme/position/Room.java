@@ -8,6 +8,7 @@ public class Room {
     private PointF topLeft;
     private PointF bottomRight;
     private String name;
+    private String hueGroupId;
 
     public Room(int id, String name, PointF topLeft, PointF bottomRight) {
         this.id = id;
@@ -58,5 +59,13 @@ public class Room {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getHueGroupId() {
+        return hueGroupId;
+    }
+
+    public void setHueGroupId(String hueGroupId) {
+        this.hueGroupId = hueGroupId;
     }
 }
