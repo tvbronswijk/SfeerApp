@@ -27,7 +27,6 @@ public class EmotionController {
         Sad,
         Angry,
         Phlegmatic,
-        Tranquil,
         Comfortable
     }
 
@@ -60,7 +59,6 @@ public class EmotionController {
         PendingIntent pendingSadIntent = PendingIntent.getBroadcast(context, 0, new Intent("Sad"), 0);
         PendingIntent pendingAngerIntent = PendingIntent.getBroadcast(context, 0, new Intent("Angry"), 0);
         PendingIntent pendingPhlegmIntent = PendingIntent.getBroadcast(context, 0, new Intent("Phlegmatic"), 0);
-        PendingIntent pendingTranqIntent = PendingIntent.getBroadcast(context, 0, new Intent("Tranquil"), 0);
         PendingIntent pendingComfortIntent = PendingIntent.getBroadcast(context, 0, new Intent("Comfortable"), 0);
 
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
@@ -73,7 +71,6 @@ public class EmotionController {
         contentView.setOnClickPendingIntent(R.id.sadbutton, pendingSadIntent);
         contentView.setOnClickPendingIntent(R.id.angrybutton, pendingAngerIntent);
         contentView.setOnClickPendingIntent(R.id.phlegmaticbutton, pendingPhlegmIntent);
-        contentView.setOnClickPendingIntent(R.id.tranquilbutton, pendingTranqIntent);
         contentView.setOnClickPendingIntent(R.id.comfortbutton, pendingComfortIntent);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
