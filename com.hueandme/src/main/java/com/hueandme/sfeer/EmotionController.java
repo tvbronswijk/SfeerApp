@@ -20,8 +20,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class EmotionController {
 
-    private Emotion currentEmotion;
-
     public enum Emotion {
         Happy,
         Sad,
@@ -40,16 +38,16 @@ public class EmotionController {
         return controller;
     }
 
-    public Emotion getEmotion(){
-        return currentEmotion;
+    public static Emotion getEmotion(Context context){
+        return Emotion.values()[context.getSharedPreferences("emoticons", 0).getInt("emotion", 0)];
     }
 
-    public void setCurrentEmotion(Emotion emotion){
-        currentEmotion = emotion;
+    public static void setCurrentEmotion(Context context, Emotion emotion){
+        context.getSharedPreferences("emoticons", 0).edit().putInt("emotion", emotion.ordinal()).apply();
     }
 
     /**
-     * Creates custom notification with 6 buttons. Change the android Manifest in case the layout changes.
+     * Creates custom notification with 5 buttons. Change the android Manifest in case the layout changes.
      * @param context
      */
     public void fireEmotionQuery(Context context){
@@ -90,8 +88,8 @@ public class EmotionController {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            EmotionController.getInstance().setCurrentEmotion(Emotion.valueOf(intent.getAction()));
-            System.out.println("Your current emotion is: " + EmotionController.getInstance().getEmotion().toString());
+            setCurrentEmotion(context, Emotion.valueOf(intent.getAction()));
+            System.out.println("Your current emotion is: " + getEmotion(context).toString());
             ((NotificationManager)context.getSystemService(NOTIFICATION_SERVICE)).cancel(1);
         }
     }
