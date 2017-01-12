@@ -31,7 +31,7 @@ public class HueMixerController {
         time = new TimeController();
     }
 
-    public Sfeer getSfeer(){
+    public List<Double> getSfeer(){
 
         if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Weather))
         {
@@ -49,8 +49,7 @@ public class HueMixerController {
         }
 
         removeExtremeValues();
-        getRGBtoXY();
-        return new Sfeer();
+        return getRGBtoXY();
     }
 
     /**
@@ -76,7 +75,7 @@ public class HueMixerController {
         }
         catch(SecurityException ex)
         {
-
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -186,6 +185,8 @@ public class HueMixerController {
         cred = RGBred;
         cgreen = RGBgreen;
         cblue = RGBblue;
+
+        //zorg ervoor dat de kleuren tussen de 0 en 1 in plaats van tussen 0 en 255
         normalizedToOne[0] = (cred / 255);
         normalizedToOne[1] = (cgreen / 255);
         normalizedToOne[2] = (cblue / 255);
@@ -228,4 +229,5 @@ public class HueMixerController {
         List<Double> xyAsList = Doubles.asList(xy);
         return xyAsList;
     }
+
 }
