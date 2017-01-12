@@ -22,6 +22,7 @@ import com.philips.lighting.hue.sdk.PHMessageType;
 import com.philips.lighting.hue.sdk.PHSDKListener;
 import com.philips.lighting.model.PHBridge;
 import com.philips.lighting.model.PHBridgeConfiguration;
+import com.philips.lighting.model.PHGroup;
 import com.philips.lighting.model.PHHueError;
 import com.philips.lighting.model.PHHueParsingError;
 
@@ -94,6 +95,11 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
             mHueSDK.getLastHeartbeat().put(bridgeConfiguration.getIpAddress(), System.currentTimeMillis());
             mHuePrefs.setUsername(username);
             mHuePrefs.setLastConnectedIPAddress(bridgeConfiguration.getIpAddress());
+
+            Log.i(TAG, "Groups:");
+            for (PHGroup group : bridge.getResourceCache().getAllGroups()) {
+                Log.i(TAG, group.getName() + ": " + group.getIdentifier());
+            }
 
             WizardAlertDialog.closeProgressDialog();
             startMainActivity();

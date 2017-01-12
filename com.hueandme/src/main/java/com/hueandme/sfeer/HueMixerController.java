@@ -3,11 +3,6 @@ package com.hueandme.sfeer;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.graphics.Color;
-
-import com.google.common.primitives.Doubles;
-
-import java.util.List;
 
 /**
  * Created by Tobi on 22-Dec-16.
@@ -31,8 +26,10 @@ public class HueMixerController {
         time = new TimeController();
     }
 
-    public List<Double> getSfeer(){
-
+    public float[] getSfeer(){
+        RGBred = 100;
+        RGBgreen = 100;
+        RGBblue = 100;
         if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Weather))
         {
             handleWeather();
@@ -72,6 +69,14 @@ public class HueMixerController {
             {
                 RGBred -= 50;
             }
+            if(weather.getRain(latitude, longitude) > 0)
+            {
+                RGBblue -= 50;
+            }
+            else if(weather.getRain(latitude, longitude) < 0)
+            {
+                RGBblue += 50;
+            }
         }
         catch(SecurityException ex)
         {
@@ -110,30 +115,30 @@ public class HueMixerController {
      */
     private void handleEmotion()
     {
-        if(emotion.getEmotion() == EmotionController.Emotion.Angry)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Angry)
         {
             RGBgreen += 50;
             RGBblue += 50;
         }
 
-        if(emotion.getEmotion() == EmotionController.Emotion.Comfortable)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Comfortable)
         {
             RGBblue -= 50;
             RGBgreen -= 50;
         }
 
-        if(emotion.getEmotion() == EmotionController.Emotion.Happy)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Happy)
         {
             RGBred += 50;
         }
 
-        if(emotion.getEmotion() == EmotionController.Emotion.Phlegmatic)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Phlegmatic)
         {
             RGBgreen -= 50;
             RGBblue -= 50;
         }
 
-        if(emotion.getEmotion() == EmotionController.Emotion.Sad)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Sad)
         {
             RGBred += 50;
             RGBgreen += 50;
@@ -176,9 +181,9 @@ public class HueMixerController {
     /**
      * methode om een rgb waarde om te zetten naar x en y waardes
      * met x en y waardes kan de Philihs hue worden aangestuurd
-     * @return list with doubles x and y
+     * @return list with floats x and y
      */
-    public List<Double> getRGBtoXY() {
+    public float[] getRGBtoXY() {
 
         double[] normalizedToOne = new double[3];
         float cred, cgreen, cblue;
@@ -223,11 +228,10 @@ public class HueMixerController {
         float x = X / (X + Y + Z);
         float y = Y / (X + Y + Z);
 
-        double[] xy = new double[2];
+        float[] xy = new float[2];
         xy[0] = x;
         xy[1] = y;
-        List<Double> xyAsList = Doubles.asList(xy);
-        return xyAsList;
+        return xy;
     }
 
 }
