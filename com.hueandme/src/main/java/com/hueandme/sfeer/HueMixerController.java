@@ -18,11 +18,7 @@ public class HueMixerController {
     private WeatherController weather;
     private TimeController time;
     private EmotionController emotion;
-    private Boolean weatherUsed;
-    private Boolean timeUsed;
-    private Boolean emotionUsed;
     private Context context;
-    private Color color;
     private float RGBred = 100;
     private float RGBgreen = 100;
     private float RGBblue = 100;
@@ -31,48 +27,35 @@ public class HueMixerController {
     public HueMixerController(Context context, SfeerConfiguration sfeerconfig){
         this.context = context;
         this.sfeerconfig = sfeerconfig;
+        weather = new WeatherController(this.context);
+        time = new TimeController();
     }
 
     public Sfeer getSfeer(){
-        checkSettings();
 
-        if(weatherUsed == true && timeUsed == true && emotionUsed == true)
+        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Weather))
         {
             handleWeather();
         }
 
-        if(timeUsed == true)
+        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Time))
         {
             handleTime();
         }
 
-        if(emotionUsed == true)
+        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Emotion))
         {
             handleEmotion();
         }
+
         removeExtremeValues();
         getRGBtoXY();
         return new Sfeer();
     }
 
-    private void checkSettings()
-    {
-        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Weather))
-        {
-            weatherUsed = true;
-        }
-
-        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Time))
-        {
-            timeUsed = true;
-        }
-
-        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Emotion))
-        {
-            emotionUsed = true;
-        }
-    }
-
+    /**
+     * methode die kleur aanpast op basis van weer
+     */
     private void handleWeather()
     {
         double longitude;
@@ -97,6 +80,9 @@ public class HueMixerController {
         }
     }
 
+    /**
+     * methode die kleur aanpast op basis van tijd
+     */
     private void handleTime()
     {
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Morning)
@@ -120,6 +106,9 @@ public class HueMixerController {
         }
     }
 
+    /**
+     * methode die kleur aanpast op basis van emotie
+     */
     private void handleEmotion()
     {
         if(emotion.getEmotion() == EmotionController.Emotion.Angry)
@@ -150,13 +139,11 @@ public class HueMixerController {
             RGBred += 50;
             RGBgreen += 50;
         }
-
-        if(emotion.getEmotion() == EmotionController.Emotion.Tranquil)
-        {
-            RGBgreen += 50;
-        }
     }
 
+    /**
+     * Methode die er voor zorgt dat RGB waardes nooit groter dan 255 zijn en nooit kleiner dan 0
+     */
     private void removeExtremeValues()
     {
         if(RGBred > 255)
@@ -187,11 +174,13 @@ public class HueMixerController {
         }
     }
 
+    /**
+     * methode om een rgb waarde om te zetten naar x en y waardes
+     * met x en y waardes kan de Philihs hue worden aangestuurd
+     * @return list with doubles x and y
+     */
     public List<Double> getRGBtoXY() {
-        // For the hue bulb the corners of the triangle are:
-        // -Red: 0.675, 0.322
-        // -Green: 0.4091, 0.518
-        // -Blue: 0.167, 0.04
+
         double[] normalizedToOne = new double[3];
         float cred, cgreen, cblue;
         cred = RGBred;
