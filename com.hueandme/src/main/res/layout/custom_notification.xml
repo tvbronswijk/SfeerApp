@@ -23,7 +23,10 @@
     <Button
         android:id="@+id/happybutton"
         android:text="happy"
-        style="@style/notification_button_style" />
+        style="@style/notification_button_style"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
     <Button
         android:id="@+id/sadbutton"
         android:layout_toRightOf="@+id/happybutton"
@@ -39,9 +42,16 @@
         android:layout_toRightOf="@+id/angrybutton"
         android:text="phlegmatic"
         style="@style/notification_button_style" />
+
     <Button
         android:id="@+id/comfortbutton"
-        android:layout_toRightOf="@+id/phlegmaticbutton"
+        android:layout_toRightOf="@+id/tranquilbutton"
         android:text="comfortable"
+        style="@style/notification_button_style" />
+
+    <Button
+        android:id="@+id/tranquilbutton"
+        android:layout_toRightOf="@+id/phlegmaticbutton"
+        android:text="tranquil"
         style="@style/notification_button_style" />
 </RelativeLayout>
