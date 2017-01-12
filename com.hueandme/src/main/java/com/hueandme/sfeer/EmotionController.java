@@ -74,7 +74,7 @@ public class EmotionController {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setCustomBigContentView(contentView)
-                .setContentTitle("Hue & Me")
+                .setContentTitle("Hue & Me (Expand to select your current mood.)")
                 .setWhen(System.currentTimeMillis());
 
         Intent notificationIntent = new Intent(context, CurrentMoodActivity.class);
