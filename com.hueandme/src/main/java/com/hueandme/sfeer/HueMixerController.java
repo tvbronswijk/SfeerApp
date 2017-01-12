@@ -32,7 +32,9 @@ public class HueMixerController {
     }
 
     public List<Double> getSfeer(){
-
+        RGBred = 100;
+        RGBgreen = 100;
+        RGBblue = 100;
         if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Weather))
         {
             handleWeather();
