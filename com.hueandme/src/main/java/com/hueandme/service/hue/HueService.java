@@ -28,6 +28,8 @@ import com.philips.lighting.model.PHLightState;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HueService extends Service implements OnRoomChangedListener {
 
@@ -43,6 +45,8 @@ public class HueService extends Service implements OnRoomChangedListener {
     private PHBridge mSelectedBridge;
 
     private Room mRoom = null;
+
+    private Timer mTimer = new Timer();
 
     @Nullable
     @Override
@@ -74,12 +78,23 @@ public class HueService extends Service implements OnRoomChangedListener {
         SfeerConfiguration sfeerConfiguration = new SfeerConfiguration();
         sfeerConfiguration.setSettings(settings);
         mMixerController = new HueMixerController(this, sfeerConfiguration);
+
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (mRoom != null) {
+                    updateLights(mRoom.getHueGroupId());
+                }
+            }
+        }, 0, 2000);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "Stopping Hue service");
+
+        mTimer.cancel();
 
         if (mBeaconService != null) {
             mBeaconService.removeRoomChangedListener(this);
