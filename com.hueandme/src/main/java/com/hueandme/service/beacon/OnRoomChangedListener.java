@@ -1,6 +1,7 @@
 package com.hueandme.service.beacon;
 
-import com.android.annotations.Nullable;
+import android.support.annotation.Nullable;
+
 import com.hueandme.position.Position;
 import com.hueandme.position.Room;
 

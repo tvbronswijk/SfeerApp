@@ -85,7 +85,7 @@ public class EmotionController {
         Intent notificationIntent = new Intent(context, CurrentMoodActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
-        mNotificationManager.notify(1, notificationBuilder.build());
+        mNotificationManager.notify(3, notificationBuilder.build());
     }
 
     public static class EmotionReceiver extends BroadcastReceiver {
