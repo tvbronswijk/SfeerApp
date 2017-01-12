@@ -7,15 +7,19 @@ public class Room {
     private final int id;
     private PointF topLeft;
     private PointF bottomRight;
+    private String name;
+    private String hueGroupId;
 
-    public Room(int id, PointF topLeft, PointF bottomRight) {
+    public Room(int id, String name, PointF topLeft, PointF bottomRight) {
         this.id = id;
+        this.name = name;
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }
 
-    public Room(int id, float x1, float y1, float x2, float y2) {
+    public Room(int id, String name, float x1, float y1, float x2, float y2) {
         this.id = id;
+        this.name = name;
         this.topLeft = new PointF(x1, y1);
         this.bottomRight = new PointF(x2, y2);
     }
@@ -46,5 +50,22 @@ public class Room {
                 && point.x <= bottomRight.x
                 && point.y >= topLeft.y
                 && point.y <= bottomRight.y;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getHueGroupId() {
+        return hueGroupId;
+    }
+
+    public void setHueGroupId(String hueGroupId) {
+        this.hueGroupId = hueGroupId;
     }
 }

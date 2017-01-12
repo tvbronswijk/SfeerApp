@@ -8,17 +8,20 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.android.annotations.Nullable;
 import com.hueandme.position.BeaconPosition;
 import com.hueandme.position.Position;
 import com.hueandme.position.Room;
 import com.hueandme.service.beacon.OnBeaconStatusChangedListener;
+import com.hueandme.service.beacon.OnRoomChangedListener;
 
 import org.altbeacon.beacon.Beacon;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class MapView extends View implements OnBeaconStatusChangedListener {
+public class MapView extends View implements OnBeaconStatusChangedListener, OnRoomChangedListener {
 
     private static final float SCALE = 100;
 
@@ -78,15 +81,18 @@ public class MapView extends View implements OnBeaconStatusChangedListener {
         mTextPaint.setColor(Color.BLACK);
         mTextPaint.setTextSize(30);
 
-        mRooms.add(new Room(1, 0, 0, 5, 10));
-        mRooms.add(new Room(2, 5, 0, 7, 6));
-
-        mBeaconPositions.add(new BeaconPosition(1, 2, "e584fbcb-829c-48b2-88cc-f7142b926aea"));
-        mBeaconPositions.add(new BeaconPosition(5, 5, "e584fbcb-829c-48b2-88cc-f7142b926aeb"));
-        mBeaconPositions.add(new BeaconPosition(3, 6, "e584fbcb-829c-48b2-88cc-f7142b926aec"));
-
         mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aeb").setTxPower(-66).setRssi(-58).build());
         mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aec").setTxPower(-66).setRssi(-54).build());
+    }
+
+    public boolean setRooms(Collection<Room> rooms) {
+        mRooms.clear();
+        return mRooms.addAll(rooms);
+    }
+
+    public boolean setBeaconPositions(Collection<BeaconPosition> positions) {
+        mBeaconPositions.clear();
+        return mBeaconPositions.addAll(positions);
     }
 
     @Override
@@ -145,33 +151,18 @@ public class MapView extends View implements OnBeaconStatusChangedListener {
         mBeaconsFound.remove(beacon);
         mBeaconsFound.add(beacon);
 
-        if (mBeaconsFound.size() >= 3) {
-            mPosition = Position.getByTrilateration(
-                    getPositionForBeacon(mBeaconsFound.get(0)), mBeaconsFound.get(0).getDistance() * 2,
-                    getPositionForBeacon(mBeaconsFound.get(1)), mBeaconsFound.get(1).getDistance() * 2,
-                    getPositionForBeacon(mBeaconsFound.get(2)), mBeaconsFound.get(2).getDistance() * 2
-            );
-
-            for (Room room : mRooms) {
-                if (room.contains(mPosition)) {
-                    mActiveRoom = room;
-                    break;
-                }
-            }
-        } else {
-            mPosition = null;
-        }
-
         postInvalidate();
     }
 
-    private Position getPositionForBeacon(Beacon beacon) {
-        for (BeaconPosition beaconPosition : mBeaconPositions) {
-            if (beacon.getId1().toString().equals(beaconPosition.getIdentifier())) {
-                return beaconPosition;
-            }
+    @Override
+    public void onRoomChanged(@Nullable Room room, @Nullable Position position) {
+        if (room != null) {
+            Log.d("MapView", "Room changed " + room.getName());
+        } else {
+            Log.d("MapView", "Out of room");
         }
 
-        return null;
+        mActiveRoom = room;
+        mPosition = position;
     }
 }
