@@ -38,6 +38,7 @@
         </activity>
         <activity android:name=".SfeerSettingsActivity">
         </activity>
+        <activity android:name=".SelectMoodActivity"></activity>
 
         <service
             android:name=".service.beacon.BeaconService"

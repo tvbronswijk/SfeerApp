@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_rooms) {
 
         } else if (id == R.id.nav_moods) {
-
+            startActivity(new Intent(this, SelectMoodActivity.class));
         } else if (id == R.id.nav_personal_atmosphere) {
             startActivity(new Intent(this, SfeerSettingsActivity.class));
         } else if (id == R.id.nav_settings) {
