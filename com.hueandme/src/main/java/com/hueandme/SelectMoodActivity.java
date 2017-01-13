@@ -17,6 +17,7 @@ public class SelectMoodActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectmood);
+        getSupportActionBar().setTitle("Moods");
         Button happyButton = (Button) findViewById(R.id.happybuttonMood);
         happyButton.setOnClickListener(new View.OnClickListener() {
             @Override
