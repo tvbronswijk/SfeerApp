@@ -3,6 +3,9 @@ package com.hueandme.sfeer;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
+
+import com.google.gson.Gson;
 
 /**
  * Created by Tobi on 22-Dec-16.
@@ -27,6 +30,10 @@ public class HueMixerController {
     }
 
     public float[] getSfeer(){
+        sfeerconfig = (SfeerConfiguration)new Gson().fromJson(context.getSharedPreferences("config", 0).getString("setting", null), SfeerConfiguration.class);
+
+        Log.d("tag you're it", context.getSharedPreferences("config", 0).getString("setting", null));
+
         RGBred = 100;
         RGBgreen = 100;
         RGBblue = 100;
