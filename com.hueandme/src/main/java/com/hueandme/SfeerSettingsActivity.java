@@ -1,14 +1,10 @@
 package com.hueandme;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Switch;
 
 import com.google.gson.Gson;
-import com.hueandme.service.hue.HueService;
 import com.hueandme.sfeer.SfeerConfiguration;
 
 import java.util.ArrayList;
@@ -23,17 +19,6 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sfeer_settings);
         config = new SfeerConfiguration();
-        Button opslaanButton = (Button) findViewById(R.id.opslaanButton);
-
-        opslaanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            updateSettings();
-            Intent intent = new Intent(SfeerSettingsActivity.this, MainActivity.class);
-                intent.putExtra("configuration", config);
-                startActivity(intent);
-            }
-        });
     }
 
 

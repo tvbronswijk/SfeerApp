@@ -5,5 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="buttontext">#5bdde6</color>
+    <color name="transparent">#275181</color>
+    <color name="tussenbalk">#b3012b67</color>
 
 </resources>
