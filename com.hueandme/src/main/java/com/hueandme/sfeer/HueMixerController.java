@@ -66,19 +66,19 @@ public class HueMixerController {
             latitude = location.getLatitude();
             if(weather.getTemperature(latitude, longitude) < 15)
             {
-                RGBred += 50;
+                RGBred += 30;
             }
             else if(weather.getTemperature(latitude, longitude) > 15)
             {
-                RGBred -= 50;
+                RGBred -= 30;
             }
             if(weather.getRain(latitude, longitude) > 0)
             {
-                RGBblue -= 50;
+                RGBblue -= 30;
             }
             else if(weather.getRain(latitude, longitude) < 0)
             {
-                RGBblue += 50;
+                RGBblue += 30;
             }
         }
         catch(SecurityException ex)
@@ -94,22 +94,30 @@ public class HueMixerController {
     {
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Morning)
         {
-            RGBred += 50;
+            RGBred += 25;
+            RGBgreen += 25;
         }
 
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Afternoon)
         {
-            RGBblue += 50;
+            RGBred += 50;
+            RGBgreen += 50;
+            RGBblue += 25;
         }
 
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Evening)
         {
-            RGBblue -= 50;
+
+            RGBred -= 50;
+            RGBgreen -=50;
+            RGBblue -= 25;
         }
 
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Night)
         {
-            RGBgreen += 50;
+            RGBred -= 100;
+            RGBgreen -= 100;
+            RGBblue -= 50;
         }
     }
 
@@ -137,7 +145,7 @@ public class HueMixerController {
 
         if(emotion.getEmotion(context) == EmotionController.Emotion.Optimistic)
         {
-            RGBgreen += 50;
+            RGBgreen += 25;
             RGBred += 75;
         }
 
