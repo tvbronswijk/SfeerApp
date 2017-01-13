@@ -1,52 +1,81 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout"
-    android:layout_width="wrap_content"
-    android:layout_height="100dp"
-    android:padding="10dp" >
-    <ImageView android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="10dp" />
-    <TextView android:id="@+id/title"
-        android:layout_width="wrap_content"
+<LinearLayout android:id="@+id/layout"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:paddingBottom="16dp"
+              android:paddingEnd="16dp"
+              android:paddingStart="16dp"
+              android:paddingTop="14dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/image"
-        style="Custom Notification Title" />
-    <TextView android:id="@+id/text"
-        android:layout_width="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="3dp"
+            android:src="@mipmap/ic_launcher"
+            android:tint="#777"/>
+
+        <TextView
+            android:paddingTop="2dp"
+            android:id="@+id/app_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="3dp"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textAppearance="@android:style/TextAppearance.Material.Notification.Info"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/image"
-        android:layout_below="@id/title"
-        style="Custom Notification Text" />
+        android:textAppearance="@android:style/TextAppearance.Material.Notification.Title"
+        android:text="@string/notification_emotion_title"
+        android:layout_marginTop="6dp"/>
 
-    <Button
-        android:id="@+id/happybutton"
-        android:text="happy"
-        style="@style/notification_button_style"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+    <ImageView
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@android:color/darker_gray"/>
 
-    <Button
-        android:id="@+id/sadbutton"
-        android:layout_toRightOf="@+id/happybutton"
-        android:text="sad"
-        style="@style/notification_button_style" />
-    <Button
-        android:id="@+id/angrybutton"
-        android:layout_toRightOf="@+id/sadbutton"
-        android:text="angry"
-        style="@style/notification_button_style" />
-    <Button
-        android:id="@+id/phlegmaticbutton"
-        android:layout_toRightOf="@+id/angrybutton"
-        android:text="phlegmatic"
-        style="@style/notification_button_style" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/comfortbutton"
-        android:layout_toRightOf="@+id/phlegmaticbutton"
-        android:text="comfortable"
-        style="@style/notification_button_style" />
+        <Button
+            android:id="@+id/happybutton"
+            style="@style/notification_button_style"
+            android:text="@string/btn_happy"/>
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/angrybutton"
+            style="@style/notification_button_style"
+            android:text="@string/btn_angry"/>
+
+        <Button
+            android:id="@+id/sadbutton"
+            style="@style/notification_button_style"
+            android:text="@string/btn_sad"/>
+
+        <Button
+            android:id="@+id/phlegmaticbutton"
+            style="@style/notification_button_style"
+            android:text="@string/btn_phlegmatic"/>
+
+        <Button
+            android:id="@+id/comfortbutton"
+            style="@style/notification_button_style"
+            android:text="@string/btn_comfort"/>
+    </LinearLayout>
+</LinearLayout>

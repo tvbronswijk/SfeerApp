@@ -18,10 +18,12 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="notification_button_style">
-        <item name="android:layout_width">75dp</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">100dp</item>
-        <item name="android:layout_below">@+id/text</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">64sp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
 </resources>

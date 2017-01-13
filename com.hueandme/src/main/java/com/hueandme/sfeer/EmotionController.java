@@ -5,12 +5,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
-import com.hueandme.SfeerSettingsActivity;
 import com.hueandme.R;
+import com.hueandme.SfeerSettingsActivity;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -61,10 +60,6 @@ public class EmotionController {
 
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
         contentView.setImageViewResource(R.id.image, R.mipmap.ic_launcher);
-        contentView.setTextViewText(R.id.title, "Hi.");
-        contentView.setTextColor(R.id.title, Color.BLACK);
-        contentView.setTextViewText(R.id.text, "How are you feeling today?");
-        contentView.setTextColor(R.id.text, Color.BLACK);
         contentView.setOnClickPendingIntent(R.id.happybutton, pendingHappyIntent);
         contentView.setOnClickPendingIntent(R.id.sadbutton, pendingSadIntent);
         contentView.setOnClickPendingIntent(R.id.angrybutton, pendingAngerIntent);
@@ -74,7 +69,8 @@ public class EmotionController {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setCustomBigContentView(contentView)
-                .setContentTitle("Hue & Me (Expand to select your current mood.)")
+                .setContentTitle(context.getString(R.string.notification_emotion_title))
+                .setContentText(context.getString(R.string.notification_emotion_content))
                 .setWhen(System.currentTimeMillis());
 
         Intent notificationIntent = new Intent(context, SfeerSettingsActivity.class);
