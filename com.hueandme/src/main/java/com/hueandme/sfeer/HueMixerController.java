@@ -118,33 +118,32 @@ public class HueMixerController {
      */
     private void handleEmotion()
     {
-        if(emotion.getEmotion(context) == EmotionController.Emotion.Angry)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Happy)
         {
             RGBgreen += 50;
+            RGBred += 50;
+        }
+
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Comfort)
+        {
+            RGBgreen += 50;
+        }
+
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Inspired)
+        {
+            RGBred += 50;
             RGBblue += 50;
         }
 
-        if(emotion.getEmotion(context) == EmotionController.Emotion.Comfortable)
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Optimistic)
         {
-            RGBblue -= 50;
-            RGBgreen -= 50;
-        }
-
-        if(emotion.getEmotion(context) == EmotionController.Emotion.Happy)
-        {
-            RGBred += 50;
-        }
-
-        if(emotion.getEmotion(context) == EmotionController.Emotion.Phlegmatic)
-        {
-            RGBgreen -= 50;
-            RGBblue -= 50;
-        }
-
-        if(emotion.getEmotion(context) == EmotionController.Emotion.Sad)
-        {
-            RGBred += 50;
             RGBgreen += 50;
+            RGBred += 75;
+        }
+
+        if(emotion.getEmotion(context) == EmotionController.Emotion.Peaceful)
+        {
+            RGBblue += 50;
         }
     }
 
