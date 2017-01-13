@@ -1,5 +1,6 @@
 package com.hueandme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -85,9 +86,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_moods) {
 
         } else if (id == R.id.nav_personal_atmosphere) {
-
+            startActivity(new Intent(this, SfeerSettingsActivity.class));
         } else if (id == R.id.nav_settings) {
-
+            startActivity(new Intent(this, SettingsActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
