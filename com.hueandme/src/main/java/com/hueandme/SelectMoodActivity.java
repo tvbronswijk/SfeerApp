@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.hueandme.sfeer.EmotionController;
+
 /**
  * Created by Sander on 13-1-2017.
  */
@@ -18,12 +20,15 @@ public class SelectMoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectmood);
         getSupportActionBar().setTitle("Moods");
+
         Button happyButton = (Button) findViewById(R.id.happybuttonMood);
         happyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
+
                 activeImage.setText("@string/btn_happy");
+                EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Happy);
             }
         });
 
@@ -33,6 +38,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
                 activeImage.setText("@string/btn_angry");
+                EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Comfort);
             }
         });
 
@@ -42,6 +48,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
                 activeImage.setText("@string/btn_sad");
+                EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Peaceful);
             }
         });
 
@@ -51,6 +58,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
                 activeImage.setText("@string/btn_phlegmatic");
+                EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Optimistic);
             }
         });
 
@@ -60,6 +68,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
                 activeImage.setText("@string/btn_comfort");
+                EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Inspired);
             }
         });
     }
