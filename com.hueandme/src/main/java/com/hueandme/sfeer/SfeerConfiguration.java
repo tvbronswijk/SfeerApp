@@ -1,6 +1,7 @@
 package com.hueandme.sfeer;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +14,7 @@ public class SfeerConfiguration implements Serializable{
         Emotion
     }
 
-    private List<Setting> settings;
-
+    private List<Setting> settings = new ArrayList<>();
 
     public void setSettings(List<Setting> settings){
         this.settings = settings;
