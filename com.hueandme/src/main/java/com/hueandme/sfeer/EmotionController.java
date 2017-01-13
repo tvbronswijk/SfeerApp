@@ -21,10 +21,10 @@ public class EmotionController {
 
     public enum Emotion {
         Happy,
-        Sad,
-        Angry,
-        Phlegmatic,
-        Comfortable
+        Comfort,
+        Peaceful,
+        Optimistic,
+        Inspired
     }
 
     private static EmotionController controller = new EmotionController();
@@ -53,18 +53,18 @@ public class EmotionController {
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
 
         PendingIntent pendingHappyIntent = PendingIntent.getBroadcast(context, 0, new Intent("Happy"), 0);
-        PendingIntent pendingSadIntent = PendingIntent.getBroadcast(context, 0, new Intent("Sad"), 0);
-        PendingIntent pendingAngerIntent = PendingIntent.getBroadcast(context, 0, new Intent("Angry"), 0);
-        PendingIntent pendingPhlegmIntent = PendingIntent.getBroadcast(context, 0, new Intent("Phlegmatic"), 0);
-        PendingIntent pendingComfortIntent = PendingIntent.getBroadcast(context, 0, new Intent("Comfortable"), 0);
+        PendingIntent pendingComfortIntent = PendingIntent.getBroadcast(context, 0, new Intent("Comfort"), 0);
+        PendingIntent pendingPeacefulIntent = PendingIntent.getBroadcast(context, 0, new Intent("Peaceful"), 0);
+        PendingIntent pendingOptimistcIntent = PendingIntent.getBroadcast(context, 0, new Intent("Optimistic"), 0);
+        PendingIntent pendingInspiredIntent = PendingIntent.getBroadcast(context, 0, new Intent("Inspired"), 0);
 
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.custom_notification);
         contentView.setImageViewResource(R.id.image, R.mipmap.ic_launcher);
         contentView.setOnClickPendingIntent(R.id.happybutton, pendingHappyIntent);
-        contentView.setOnClickPendingIntent(R.id.sadbutton, pendingSadIntent);
-        contentView.setOnClickPendingIntent(R.id.angrybutton, pendingAngerIntent);
-        contentView.setOnClickPendingIntent(R.id.phlegmaticbutton, pendingPhlegmIntent);
-        contentView.setOnClickPendingIntent(R.id.comfortbutton, pendingComfortIntent);
+        contentView.setOnClickPendingIntent(R.id.sadbutton, pendingComfortIntent);
+        contentView.setOnClickPendingIntent(R.id.angrybutton, pendingPeacefulIntent);
+        contentView.setOnClickPendingIntent(R.id.phlegmaticbutton, pendingOptimistcIntent);
+        contentView.setOnClickPendingIntent(R.id.comfortbutton, pendingInspiredIntent);
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)
