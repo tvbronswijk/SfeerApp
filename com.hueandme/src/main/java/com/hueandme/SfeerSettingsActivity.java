@@ -18,10 +18,8 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         opslaanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                    Intent intent = new Intent(SfeerSettingsActivity.this, .class);
-                    //intent.putExtra("");
-                    startActivity(intent);
+                    //TODO: sla de sfeer ergens op
+                    finish();
             }
         });
     }
