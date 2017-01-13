@@ -21,10 +21,19 @@
         android:background="@color/white" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/activeMood"
+        style="@style/mood_image_style"
+        android:layout_width="167dp"
+        android:layout_height="152dp"
         android:text="@string/btn_comfort"
+        android:layout_gravity="center"
+        android:textAlignment="center"
         android:textColor="@color/white"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,35 +43,99 @@
         android:gravity="bottom|center"
         android:layout_marginTop="20dp">
 
-
-
-        <Button
-            android:id="@+id/button1"
-            style="@style/notification_button_style"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_happy"/>
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/happybuttonMood"
+                style="@style/notification_button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_happy"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="happy"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/button2"
-            style="@style/notification_button_style"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_angry"/>
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button3"
-            style="@style/notification_button_style"
+            <Button
+                android:id="@+id/angrybuttonMood"
+                style="@style/notification_button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_angry"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="comfort"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_sad"/>
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/sadbuttonMood"
+                style="@style/notification_button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_sad"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="peaceful"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/button4"
-            style="@style/notification_button_style"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/phlegmaticbuttonMood"
+                style="@style/notification_button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
             android:text="@string/btn_phlegmatic"/>
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="optimistic"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/comfortbuttonMood"
+                style="@style/notification_button_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_comfort"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="inspired"
+                android:textSize="12dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

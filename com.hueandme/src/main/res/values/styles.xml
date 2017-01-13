@@ -26,4 +26,9 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
+    <style name="mood_image_style">
+        <item name="android:textSize">128sp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>
