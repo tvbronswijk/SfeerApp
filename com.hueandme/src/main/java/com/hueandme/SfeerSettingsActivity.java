@@ -2,6 +2,7 @@ package com.hueandme;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Switch;
 
 import com.google.gson.Gson;
@@ -19,6 +20,29 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sfeer_settings);
         config = new SfeerConfiguration();
+
+        Switch weatherSwitch = (Switch) findViewById(R.id.switch7);
+        weatherSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateSettings();
+            }
+        });
+        Switch timeSwitch = (Switch) findViewById(R.id.switch5);
+        timeSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateSettings();
+            }
+        });
+        Switch emotionSwitch = (Switch) findViewById(R.id.switch6);
+        emotionSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateSettings();
+            }
+        });
+
     }
 
 
