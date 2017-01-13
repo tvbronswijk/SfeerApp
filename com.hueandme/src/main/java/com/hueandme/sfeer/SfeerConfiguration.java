@@ -1,11 +1,12 @@
 package com.hueandme.sfeer;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Tobi on 22-Dec-16.
  */
-public class SfeerConfiguration {
+public class SfeerConfiguration implements Serializable{
     public enum Setting{
         Weather,
         Time,

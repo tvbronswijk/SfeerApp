@@ -49,7 +49,7 @@ public class EmotionController {
      * Creates custom notification with 5 buttons. Change the android Manifest in case the layout changes.
      * @param context
      */
-    public void fireEmotionQuery(Context context){
+    public static void fireEmotionQuery(Context context){
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
 
         PendingIntent pendingHappyIntent = PendingIntent.getBroadcast(context, 0, new Intent("Happy"), 0);
