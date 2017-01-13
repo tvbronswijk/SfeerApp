@@ -79,6 +79,9 @@ public class HueService extends Service implements OnRoomChangedListener {
         bindService(beaconIntent, mBeaconServiceConnection, 0);
 
         SfeerConfiguration sfeerConfiguration = (SfeerConfiguration)new Gson().fromJson(getSharedPreferences("config", 0).getString("setting", null), SfeerConfiguration.class);
+        if(sfeerConfiguration == null){
+            sfeerConfiguration = new SfeerConfiguration();
+        }
 
         mMixerController = new HueMixerController(this, sfeerConfiguration);
 
