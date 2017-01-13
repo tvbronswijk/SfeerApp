@@ -17,6 +17,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.hueandme.R;
 import com.hueandme.position.Position;
 import com.hueandme.position.Room;
@@ -77,13 +78,8 @@ public class HueService extends Service implements OnRoomChangedListener {
         startService(beaconIntent);
         bindService(beaconIntent, mBeaconServiceConnection, 0);
 
-        List<SfeerConfiguration.Setting> settings = new ArrayList<>();
-        settings.add(SfeerConfiguration.Setting.Emotion);
-        settings.add(SfeerConfiguration.Setting.Time);
-        settings.add(SfeerConfiguration.Setting.Weather);
+        SfeerConfiguration sfeerConfiguration = (SfeerConfiguration)new Gson().fromJson(getSharedPreferences("config", 0).getString("setting", null), SfeerConfiguration.class);
 
-        SfeerConfiguration sfeerConfiguration = new SfeerConfiguration();
-        sfeerConfiguration.setSettings(settings);
         mMixerController = new HueMixerController(this, sfeerConfiguration);
 
         mTimer.scheduleAtFixedRate(new TimerTask() {

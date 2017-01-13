@@ -35,6 +35,10 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:2.1.9'
     compile 'org.altbeacon:android-beacon-library:2.9.2'
 
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.4'
+
+
     testCompile 'junit:junit:4.12'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {

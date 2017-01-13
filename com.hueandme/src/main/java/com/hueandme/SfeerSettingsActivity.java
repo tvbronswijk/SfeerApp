@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 
+import com.google.gson.Gson;
 import com.hueandme.service.hue.HueService;
 import com.hueandme.sfeer.SfeerConfiguration;
 
@@ -59,6 +60,7 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         }
 
         config.setSettings(settings);
+        getSharedPreferences("config", 0).edit().putString(new Gson().toJson(config), null).apply();
     }
 
 
