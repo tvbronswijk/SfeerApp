@@ -28,10 +28,9 @@ public class SfeerSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
             updateSettings();
-            Intent intent = new Intent(SfeerSettingsActivity.this, HueService.class);
+            Intent intent = new Intent(SfeerSettingsActivity.this, MainActivity.class);
                 intent.putExtra("configuration", config);
                 startActivity(intent);
-                    finish();
             }
         });
     }
@@ -41,7 +40,6 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         Switch weatherSwitch = (Switch) findViewById(R.id.switch7);
         Switch timeSwitch = (Switch) findViewById(R.id.switch5);
         Switch emotionSwitch = (Switch) findViewById(R.id.switch6);
-
 
         List<SfeerConfiguration.Setting> settings = new ArrayList<>();
 
