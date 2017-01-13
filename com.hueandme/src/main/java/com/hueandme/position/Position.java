@@ -41,8 +41,8 @@ public class Position {
             Position location2, double distance2,
             Position location3, double distance3) {
 
-        float top = 0;
-        float bot = 0;
+        double top = 0;
+        double bot = 0;
         for (int i = 0; i < 3; i++) {
             Position position1;
             Position position2;
@@ -66,22 +66,22 @@ public class Position {
                 distance = distance3;
             }
 
-            float d = position2.getPoint().x - position3.getPoint().x;
+            double d = position2.getPoint().x - position3.getPoint().x;
 
-            float v1 = (position1.getPoint().x * position1.getPoint().x + position1.getPoint().y * position1.getPoint().y) - (float) (distance * distance);
+            double v1 = (position1.getPoint().x * position1.getPoint().x + position1.getPoint().y * position1.getPoint().y) - (distance * distance);
             top += d * v1;
 
-            float v2 = position1.getPoint().y * d;
+            double v2 = position1.getPoint().y * d;
             bot += v2;
 
         }
 
-        float y = top / (2 * bot);
-        top = (float) (distance2 * distance2 + location1.getPoint().x * location1.getPoint().x + location1.getPoint().y * location1.getPoint().y - distance1 * distance1 - location2.getPoint().x * location2.getPoint().x - location2.getPoint().y * location2.getPoint().y - 2 * (location1.getPoint().y - location2.getPoint().y) * y);
+        double y = top / (2 * bot);
+        top = distance2 * distance2 + location1.getPoint().x * location1.getPoint().x + location1.getPoint().y * location1.getPoint().y - distance1 * distance1 - location2.getPoint().x * location2.getPoint().x - location2.getPoint().y * location2.getPoint().y - 2 * (location1.getPoint().y - location2.getPoint().y) * y;
         bot = location1.getPoint().x - location2.getPoint().x;
-        float x = top / (2 * bot);
+        double x = top / (2 * bot);
 
-        return new Position(x, y);
+        return new Position((float) x, (float)y);
     }
 
 }

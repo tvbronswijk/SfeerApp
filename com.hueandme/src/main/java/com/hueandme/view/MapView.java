@@ -81,7 +81,7 @@ public class MapView extends View implements OnBeaconStatusChangedListener, OnRo
         mTextPaint.setColor(Color.BLACK);
         mTextPaint.setTextSize(30);
 
-        mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aeb").setTxPower(-66).setRssi(-58).build());
+        //mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aeb").setTxPower(-66).setRssi(-58).build());
         mBeaconsFound.add(new Beacon.Builder().setId1("e584fbcb-829c-48b2-88cc-f7142b926aec").setTxPower(-66).setRssi(-54).build());
     }
 
@@ -125,7 +125,7 @@ public class MapView extends View implements OnBeaconStatusChangedListener, OnRo
 
         if (mPosition != null) {
             canvas.drawCircle(mPosition.getPoint().x * SCALE, mPosition.getPoint().y * SCALE, 15, mPositionPaint);
-            canvas.drawText("@" + mPosition.getPoint(), 100, 100, mTextPaint);
+            canvas.drawText("@" + mPosition.getPoint(), 50, 50, mTextPaint);
         }
     }
 
