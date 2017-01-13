@@ -31,6 +31,7 @@ public class SfeerSettingsActivity extends AppCompatActivity {
             Intent intent = new Intent(SfeerSettingsActivity.this, HueService.class);
                 intent.putExtra("configuration", config);
                 startActivity(intent);
+                    finish();
             }
         });
     }

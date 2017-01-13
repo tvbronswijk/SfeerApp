@@ -74,7 +74,6 @@ public class EntryActivity extends AppCompatActivity implements AdapterView.OnIt
         } else {
             doBridgeSearch();
         }
-        EmotionController.getInstance().fireEmotionQuery(this);
     }
 
     private PHSDKListener mPHSDKListener = new PHSDKListener() {

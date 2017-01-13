@@ -3,9 +3,15 @@ package com.hueandme.service.hue;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -16,6 +22,7 @@ import com.hueandme.position.Position;
 import com.hueandme.position.Room;
 import com.hueandme.service.beacon.BeaconService;
 import com.hueandme.service.beacon.OnRoomChangedListener;
+import com.hueandme.sfeer.EmotionController;
 import com.hueandme.sfeer.HueMixerController;
 import com.hueandme.sfeer.SfeerConfiguration;
 import com.philips.lighting.hue.sdk.PHAccessPoint;
@@ -87,6 +94,7 @@ public class HueService extends Service implements OnRoomChangedListener {
                 }
             }
         }, 0, 2000);
+
     }
 
     @Override
@@ -206,6 +214,19 @@ public class HueService extends Service implements OnRoomChangedListener {
     public class HueBinder extends Binder {
         public HueService getService() {
             return HueService.this;
+        }
+    }
+
+    public static class WifiReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = conMan.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.getType() == ConnectivityManager.TYPE_WIFI){
+                System.out.println("You are connected to WiFi");
+                EmotionController.fireEmotionQuery(context);
+            }
         }
     }
 }
