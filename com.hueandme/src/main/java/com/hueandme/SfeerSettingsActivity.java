@@ -47,29 +47,29 @@ public class SfeerSettingsActivity extends AppCompatActivity {
 
 
     private void updateSettings() {
-        Switch weatherSwitch = (Switch) findViewById(R.id.switch7);
-        Switch timeSwitch = (Switch) findViewById(R.id.switch5);
+        Switch weatherSwitch = (Switch) findViewById(R.id.switch5);
         Switch emotionSwitch = (Switch) findViewById(R.id.switch6);
+        Switch timeSwitch = (Switch) findViewById(R.id.switch7);
 
         List<SfeerConfiguration.Setting> settings = new ArrayList<>();
 
-        if(weatherSwitch.isActivated())
+        if(weatherSwitch.isChecked())
         {
             settings.add(SfeerConfiguration.Setting.Weather);
         }
 
-        if(timeSwitch.isActivated())
+        if(timeSwitch.isChecked())
         {
             settings.add(SfeerConfiguration.Setting.Time);
         }
 
-        if(emotionSwitch.isActivated())
+        if(emotionSwitch.isChecked())
         {
             settings.add(SfeerConfiguration.Setting.Emotion);
         }
 
         config.setSettings(settings);
-        getSharedPreferences("config", 0).edit().putString(new Gson().toJson(config), null).apply();
+        getSharedPreferences("config", 0).edit().putString("setting", new Gson().toJson(config)).apply();
     }
 
 
