@@ -2,7 +2,7 @@
 <manifest package="com.hueandme"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
@@ -43,7 +43,6 @@
             android:name=".service.beacon.BeaconService"
             android:enabled="true"
             android:exported="true"/>
-
         <service
             android:name=".service.hue.HueService"
             android:enabled="true"
@@ -74,11 +73,11 @@
                 <action android:name="Comfortable"/>
             </intent-filter>
         </receiver>
-
-        <receiver android:name=".service.hue.HueService$WifiReceiver"
+        <receiver
+            android:name=".service.hue.HueService$WifiReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
     </application>
