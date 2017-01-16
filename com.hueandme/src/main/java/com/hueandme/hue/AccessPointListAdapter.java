@@ -1,7 +1,6 @@
 package com.hueandme.hue;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,9 +65,7 @@ public class AccessPointListAdapter extends BaseAdapter {
             item = (BridgeListItem) convertView.getTag();
         }
         PHAccessPoint accessPoint = accessPoints.get(position);
-        item.bridgeIp.setTextColor(Color.BLACK);
         item.bridgeIp.setText(accessPoint.getIpAddress());
-        item.bridgeMac.setTextColor(Color.DKGRAY);
         item.bridgeMac.setText(accessPoint.getMacAddress());
 
         return convertView;
