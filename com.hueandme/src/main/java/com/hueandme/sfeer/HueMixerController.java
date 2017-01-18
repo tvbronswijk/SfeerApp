@@ -150,9 +150,9 @@ public class HueMixerController {
     }
 
     private void changeColor(int[] rgb){
-        RGBred = rgb[0];
-        RGBgreen = rgb[1];
-        RGBblue = rgb[2];
+        RGBred += rgb[0];
+        RGBgreen += rgb[1];
+        RGBblue += rgb[2];
     }
 
     /**

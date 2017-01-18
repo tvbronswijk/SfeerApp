@@ -12,13 +12,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.Toast;
 
 import com.hueandme.sfeer.SfeerConfigurationController;
 import com.hueandme.sfeer.sfeerconfig.SfeerConfiguration;
-import com.hueandme.sfeer.sfeerconfig.WeatherSetting;
 
 
 public class SfeerSettingsActivity extends AppCompatActivity {
@@ -107,6 +104,21 @@ public class SfeerSettingsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Switch weatherSwitch = (Switch) findViewById(R.id.chk_weather);
+        Switch timeSwitch = (Switch) findViewById(R.id.chk_time);
+        Switch emotionSwitch = (Switch) findViewById(R.id.chk_emotion);
+
+        if (getIntent().hasExtra("name")) {
+            config = mConfigurationController.get(getIntent().getStringExtra("name"));
+            weatherSwitch.setChecked(config.getWeather() != null);
+            timeSwitch.setChecked(config.getTime() != null);
+            emotionSwitch.setChecked(config.getEmotion() != null);
+        }
     }
 
     @Override
