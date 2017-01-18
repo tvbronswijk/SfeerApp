@@ -79,7 +79,7 @@ public class BeaconService extends Service implements BeaconConsumer, OnBeaconSt
         roomKitchen.setHueGroupId("2");
         mRooms.add(roomKitchen);
 
-        mBeaconPositions.add(new BeaconPosition(5, 1, "e584fbcb-829c-48b2-88cc-f7142b926aea"));
+        mBeaconPositions.add(new BeaconPosition(2, 1, "e584fbcb-829c-48b2-88cc-f7142b926aea"));
         mBeaconPositions.add(new BeaconPosition(5, 5, "0x00010203040506070809"));
         mBeaconPositions.add(new BeaconPosition(3, 6, "e584fbcb-829c-48b2-88cc-f7142b926aec"));
 

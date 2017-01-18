@@ -3,9 +3,7 @@ package com.hueandme.sfeer;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Log;
 
-import com.google.gson.Gson;
 import com.hueandme.sfeer.sfeerconfig.SfeerConfiguration;
 
 /**
@@ -22,42 +20,41 @@ public class HueMixerController {
     private float RGBgreen = 100;
     private float RGBblue = 100;
     private SfeerConfiguration sfeerconfig;
+    private SfeerConfigurationController mConfigurationController;
 
     public HueMixerController(Context context, SfeerConfiguration sfeerconfig){
         this.context = context;
         this.sfeerconfig = sfeerconfig;
         weather = new WeatherController(this.context);
         time = new TimeController();
+        mConfigurationController = new SfeerConfigurationController(context);
     }
 
     public float[] getSfeer(){
-        sfeerconfig = (SfeerConfiguration)new Gson().fromJson(context.getSharedPreferences("config", 0).getString("setting", null), SfeerConfiguration.class);
-
-        Log.d("tag you're it", context.getSharedPreferences("config", 0).getString("setting", null) + "");
+        sfeerconfig = mConfigurationController.get("Default");
 
         RGBred = 75;
         RGBgreen = 75;
         RGBblue = 75;
 
+        if (sfeerconfig != null) {
 
+            if (sfeerconfig.getWeather() != null) {
+                handleWeather();
+            }
 
-        if(sfeerconfig.getWeather() != null)
-        {
-            handleWeather();
-        }
+            if (sfeerconfig.getTime() != null) {
+                handleTime();
+            }
 
-        if(sfeerconfig.getTime() != null)
-        {
-            handleTime();
-        }
-
-        if(sfeerconfig.getEmotion() != null)
-        {
-            handleEmotion();
+            if (sfeerconfig.getEmotion() != null) {
+                handleEmotion();
+            }
         }
 
         removeExtremeValues();
         return getRGBtoXY();
+
     }
 
     /**
