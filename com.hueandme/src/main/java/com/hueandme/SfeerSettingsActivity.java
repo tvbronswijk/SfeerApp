@@ -1,6 +1,7 @@
 package com.hueandme;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toast;
 
 import com.hueandme.sfeer.SfeerConfigurationController;
 import com.hueandme.sfeer.sfeerconfig.SfeerConfiguration;
+import com.hueandme.sfeer.sfeerconfig.WeatherSetting;
+
 
 public class SfeerSettingsActivity extends AppCompatActivity {
 
@@ -25,10 +30,23 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sfeer_settings);
 
+        TextView weatherlabel = (TextView)findViewById(R.id.textView6);
         Switch weatherSwitch = (Switch) findViewById(R.id.chk_weather);
         Switch timeSwitch = (Switch) findViewById(R.id.chk_time);
         Switch emotionSwitch = (Switch) findViewById(R.id.chk_emotion);
 
+        mConfigurationController = new SfeerConfigurationController(this);
+
+        if (getIntent().hasExtra("name")) {
+            config = mConfigurationController.get(getIntent().getStringExtra("name"));
+            weatherSwitch.setChecked(config.getWeather() != null);
+            timeSwitch.setChecked(config.getTime() != null);
+            emotionSwitch.setChecked(config.getEmotion() != null);
+        } else {
+            config = new SfeerConfiguration();
+        }
+
+        setTitle(config.getName() != null && !config.getName().isEmpty() ? config.getName() : "<no name>");
         mConfigurationController = new SfeerConfigurationController(this);
 
         if (getIntent().hasExtra("name")) {
@@ -58,6 +76,15 @@ public class SfeerSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateSettings();
+            }
+        });
+
+        weatherlabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SfeerSettingsActivity.this, WeatherSettingActivity.class);
+                intent.putExtra("name", config.getName());
+                startActivity(intent);
             }
         });
     }
