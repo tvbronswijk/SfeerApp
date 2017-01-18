@@ -40,13 +40,13 @@ public class WeatherAPI {
      * @throws InterruptedException
      */
     public JsonObject get(double lat, double lon) throws ExecutionException, InterruptedException {
-        //main.humidity = int
-        //main.pressure = int
-        //main.temp_min = double
-        //main.temp_max = double
+        //sfeer_settings.humidity = int
+        //sfeer_settings.pressure = int
+        //sfeer_settings.temp_min = double
+        //sfeer_settings.temp_max = double
         //rain.3h = int
         //clouds.all = int
-        //weather.main = string
+        //weather.sfeer_settings = string
         //weather.description = string
 
         Future<JsonObject> json = Ion.with(context)

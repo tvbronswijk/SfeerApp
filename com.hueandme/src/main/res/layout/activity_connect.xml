@@ -17,16 +17,28 @@
             android:id="@+id/imageView"
             />
 
+        <TextView
+            android:text="Druk op de Pushlink-knop van de Hue bridge waarmee je verbinding wilt maken."
+            android:layout_width="298dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:textColor="@color/white"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="0.02"
+            android:textAlignment="center" />
+
         <ImageView
-            android:layout_width="200dp"
+            android:layout_width="218dp"
             android:layout_height="200dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/press_pushlink_button"
             android:gravity="center"
-            android:src="@drawable/press_smartbridge"
+            android:src="@drawable/knop1"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            />
+            android:layout_marginTop="45dp"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="0.22" />
 
         <ProgressBar
             style="?android:attr/progressBarStyle"
@@ -34,30 +46,6 @@
             android:layout_height="28dp"
             android:id="@+id/pbCountdown"
             android:layout_marginTop="15dp"
-            />
-
-        <Button
-            android:text="Search"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:id="@+id/btnSearch"
-            android:background="@drawable/buttons"
-            android:textColor="@color/buttontext"
-            android:textSize="14dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            />
-
-        <Button
-            android:text="Help"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:id="@+id/btnHelp"
-            android:background="@drawable/buttons"
-            android:textColor="@color/buttontext"
-            android:textSize="14dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
             />
 
     </LinearLayout>

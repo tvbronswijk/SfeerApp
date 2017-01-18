@@ -1,11 +1,7 @@
 package com.hueandme.sfeer.sfeerconfig;
 
-import com.hueandme.sfeer.WeatherController;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +9,6 @@ import java.util.Map;
  */
 public class SfeerConfiguration implements Serializable{
 
-    private int Id;
     private String name;
     private Map<String, SfeerSetting> settings = new HashMap<>();
 
@@ -24,38 +19,51 @@ public class SfeerConfiguration implements Serializable{
     }
 
     public void setWeatherEnabled(boolean enabled){
-        if(enabled && settings.get("weather") != null){
-            settings.put("weather", new WeatherSetting());
+        if(enabled && settings.get("weather") == null){
+            settings.put("weather", new SfeerSetting(SfeerSetting.Type.WEATHER));
         }else if(!enabled){
             settings.put("weather", null);
         }
     }
 
     public void setTimeEnabled(boolean enabled){
-        if(enabled && settings.get("time") != null){
-            settings.put("time", new TimeSetting());
+        if(enabled && settings.get("time") == null){
+            settings.put("time", new SfeerSetting(SfeerSetting.Type.TIME));
         }else if(!enabled){
             settings.put("time", null);
         }
     }
 
     public void setEmotionEnabled(boolean enabled){
-        if(enabled && settings.get("emotion") != null){
-            settings.put("emotion", new EmotionSetting());
+        if(enabled && settings.get("emotion") == null){
+            settings.put("emotion", new SfeerSetting(SfeerSetting.Type.EMOTION));
         }else if(!enabled){
             settings.put("emotion", null);
         }
     }
 
     public WeatherSetting getWeather(){
-        return (WeatherSetting) settings.get("weather");
+        return settings.get("weather");
     }
 
     public TimeSetting getTime(){
-        return (TimeSetting) settings.get("time");
+        return settings.get("time");
     }
 
     public EmotionSetting getEmotion(){
-        return (EmotionSetting) settings.get("emotion");
+        return settings.get("emotion");
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

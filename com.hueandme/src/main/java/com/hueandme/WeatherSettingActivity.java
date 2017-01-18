@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.SeekBar;
 
+import com.hueandme.sfeer.SfeerConfigurationController;
 import com.hueandme.sfeer.sfeerconfig.SfeerConfiguration;
 
 public class WeatherSettingActivity extends AppCompatActivity {
@@ -14,12 +15,12 @@ public class WeatherSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_setting);
-
+        config = new SfeerConfigurationController(this).get(getIntent().getStringExtra("name"));
     }
 
     @Override
-    protected void onDestroy(){
-        super.onDestroy();
+    protected void onPause(){
+        super.onPause();
         saveColors();
     }
 
