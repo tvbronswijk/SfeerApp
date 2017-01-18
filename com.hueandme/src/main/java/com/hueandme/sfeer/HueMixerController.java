@@ -6,6 +6,7 @@ import android.location.LocationManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.hueandme.sfeer.sfeerconfig.SfeerConfiguration;
 
 /**
  * Created by Tobi on 22-Dec-16.
@@ -34,23 +35,23 @@ public class HueMixerController {
 
         Log.d("tag you're it", context.getSharedPreferences("config", 0).getString("setting", null) + "");
 
-        RGBred = 100;
-        RGBgreen = 100;
-        RGBblue = 100;
+        RGBred = 75;
+        RGBgreen = 75;
+        RGBblue = 75;
 
 
 
-        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Weather))
+        if(sfeerconfig.getWeather() != null)
         {
             handleWeather();
         }
 
-        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Time))
+        if(sfeerconfig.getTime() != null)
         {
             handleTime();
         }
 
-        if(sfeerconfig.getSettings().contains(SfeerConfiguration.Setting.Emotion))
+        if(sfeerconfig.getEmotion() != null)
         {
             handleEmotion();
         }
@@ -73,19 +74,19 @@ public class HueMixerController {
             latitude = location.getLatitude();
             if(weather.getTemperature(latitude, longitude) < 15)
             {
-                RGBred += 30;
+                changeColor(sfeerconfig.getWeather().getCold());
             }
             else if(weather.getTemperature(latitude, longitude) > 15)
             {
-                RGBred -= 30;
+                changeColor(sfeerconfig.getWeather().getWarm());
             }
             if(weather.getRain(latitude, longitude) > 0)
             {
-                RGBblue -= 30;
+                changeColor(sfeerconfig.getWeather().getDry());
             }
             else if(weather.getRain(latitude, longitude) < 0)
             {
-                RGBblue += 30;
+                changeColor(sfeerconfig.getWeather().getRainy());
             }
         }
         catch(SecurityException ex)
@@ -101,30 +102,22 @@ public class HueMixerController {
     {
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Morning)
         {
-            RGBred += 25;
-            RGBgreen += 25;
+            changeColor(sfeerconfig.getTime().getMorning());
         }
 
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Afternoon)
         {
-            RGBred += 50;
-            RGBgreen += 50;
-            RGBblue += 25;
+            changeColor(sfeerconfig.getTime().getAfternoon());
         }
 
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Evening)
         {
-
-            RGBred -= 50;
-            RGBgreen -=50;
-            RGBblue -= 25;
+            changeColor(sfeerconfig.getTime().getEvening());
         }
 
         if(time.getTimeOfDay() == TimeController.TimeOfDay.Night)
         {
-            RGBred -= 100;
-            RGBgreen -= 100;
-            RGBblue -= 50;
+            changeColor(sfeerconfig.getTime().getNight());
         }
     }
 
@@ -135,31 +128,34 @@ public class HueMixerController {
     {
         if(emotion.getEmotion(context) == EmotionController.Emotion.Happy)
         {
-            RGBgreen += 50;
-            RGBred += 50;
+            changeColor(sfeerconfig.getEmotion().getHappy());
         }
 
         if(emotion.getEmotion(context) == EmotionController.Emotion.Comfort)
         {
-            RGBgreen += 50;
+            changeColor(sfeerconfig.getEmotion().getComfort());
         }
 
         if(emotion.getEmotion(context) == EmotionController.Emotion.Inspired)
         {
-            RGBred += 50;
-            RGBblue += 50;
+            changeColor(sfeerconfig.getEmotion().getInspired());
         }
 
         if(emotion.getEmotion(context) == EmotionController.Emotion.Optimistic)
         {
-            RGBgreen += 25;
-            RGBred += 75;
+            changeColor(sfeerconfig.getEmotion().getOptimistic());
         }
 
         if(emotion.getEmotion(context) == EmotionController.Emotion.Peaceful)
         {
-            RGBblue += 50;
+            changeColor(sfeerconfig.getEmotion().getPeaceful());
         }
+    }
+
+    private void changeColor(int[] rgb){
+        RGBred = rgb[0];
+        RGBgreen = rgb[1];
+        RGBblue = rgb[2];
     }
 
     /**

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Switch;
 
 import com.google.gson.Gson;
-import com.hueandme.sfeer.SfeerConfiguration;
+import com.hueandme.sfeer.sfeerconfig.SfeerConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,24 +51,10 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         Switch emotionSwitch = (Switch) findViewById(R.id.switch6);
         Switch timeSwitch = (Switch) findViewById(R.id.switch7);
 
-        List<SfeerConfiguration.Setting> settings = new ArrayList<>();
+        config.setWeatherEnabled(weatherSwitch.isChecked());
+        config.setTimeEnabled(timeSwitch.isChecked());
+        config.setEmotionEnabled(emotionSwitch.isChecked());
 
-        if(weatherSwitch.isChecked())
-        {
-            settings.add(SfeerConfiguration.Setting.Weather);
-        }
-
-        if(timeSwitch.isChecked())
-        {
-            settings.add(SfeerConfiguration.Setting.Time);
-        }
-
-        if(emotionSwitch.isChecked())
-        {
-            settings.add(SfeerConfiguration.Setting.Emotion);
-        }
-
-        config.setSettings(settings);
         getSharedPreferences("config", 0).edit().putString("setting", new Gson().toJson(config)).apply();
     }
 
