@@ -35,10 +35,6 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         Switch timeSwitch = (Switch) findViewById(R.id.chk_time);
         Switch emotionSwitch = (Switch) findViewById(R.id.chk_emotion);
 
-        Switch weatherSwitch = (Switch) findViewById(R.id.chk_weather);
-        Switch timeSwitch = (Switch) findViewById(R.id.chk_time);
-        Switch emotionSwitch = (Switch) findViewById(R.id.chk_emotion);
-
         mConfigurationController = new SfeerConfigurationController(this);
 
         if (getIntent().hasExtra("name")) {
@@ -80,6 +76,15 @@ public class SfeerSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateSettings();
+            }
+        });
+
+        weatherlabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SfeerSettingsActivity.this, WeatherSettingActivity.class);
+                intent.putExtra("name", config.getName());
+                startActivity(intent);
             }
         });
     }
