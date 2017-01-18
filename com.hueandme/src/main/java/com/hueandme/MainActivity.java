@@ -1,9 +1,12 @@
 package com.hueandme;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +18,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.hueandme.sfeer.EmotionController;
+import com.hueandme.sfeer.TimeController;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,6 +41,29 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        TextView tvEmotie = (TextView)findViewById(R.id.tvEmotie);
+        TextView tvWeer = (TextView)findViewById(R.id.tvWeer);
+        TextView tvTijd = (TextView)findViewById(R.id.tvTime);
+
+
+        TimeController timeController = new TimeController();
+        
+
+        tvEmotie.setText();
+        tvTijd.setText(timeController.getTime().getTime().getHours() + ":" + timeController.getTime().getTime().getMinutes());
+        tvWeer.setText();
+
+        Context context;
+        double longitude;
+        double latitude;
+
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+
+
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -90,4 +122,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
