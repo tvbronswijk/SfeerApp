@@ -19,7 +19,7 @@ public class TimeController {
         Night
     }
 
-    private GregorianCalendar getTime(){
+    public GregorianCalendar getTime(){
        return new GregorianCalendar(getTimeZone(), getLocale());
     }
 
