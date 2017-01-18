@@ -45,6 +45,10 @@ public class EmotionController {
         context.getSharedPreferences("emoticons", 0).edit().putInt("emotion", emotion.ordinal()).apply();
     }
 
+    public static Emotion getCurrentEmotion(Context context){
+        return getEmotion(context);
+    }
+
     /**
      * Creates custom notification with 5 buttons. Change the android Manifest in case the layout changes.
      * @param context

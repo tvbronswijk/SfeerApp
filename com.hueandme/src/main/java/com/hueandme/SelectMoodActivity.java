@@ -20,6 +20,30 @@ public class SelectMoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectmood);
         getSupportActionBar().setTitle("Moods");
+        TextView activeImage = (TextView) findViewById(R.id.activeMood);
+        EmotionController.Emotion emotion = EmotionController.getCurrentEmotion(getApplicationContext());
+
+        if(emotion == EmotionController.Emotion.Comfort)
+        {
+            activeImage.setText(getResources().getString(R.string.btn_angry));
+        }
+        if(emotion == EmotionController.Emotion.Inspired)
+        {
+            activeImage.setText(getResources().getString(R.string.btn_comfort));
+        }
+        if(emotion == EmotionController.Emotion.Optimistic)
+        {
+            activeImage.setText(getResources().getString(R.string.btn_phlegmatic));
+        }
+        if(emotion == EmotionController.Emotion.Peaceful)
+        {
+            activeImage.setText(getResources().getString(R.string.btn_sad));
+        }
+        if(emotion == EmotionController.Emotion.Happy)
+        {
+            activeImage.setText(getResources().getString(R.string.btn_happy));
+        }
+
 
         Button happyButton = (Button) findViewById(R.id.happybuttonMood);
         happyButton.setOnClickListener(new View.OnClickListener() {
