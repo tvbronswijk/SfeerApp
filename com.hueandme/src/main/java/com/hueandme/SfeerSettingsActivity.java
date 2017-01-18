@@ -1,6 +1,7 @@
 package com.hueandme;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +10,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toast;
 
 import com.hueandme.sfeer.SfeerConfigurationController;
 import com.hueandme.sfeer.sfeerconfig.SfeerConfiguration;
+import com.hueandme.sfeer.sfeerconfig.WeatherSetting;
+
 
 public class SfeerSettingsActivity extends AppCompatActivity {
 
@@ -25,10 +31,25 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sfeer_settings);
 
+        ImageView weatherlabel = (ImageView) findViewById(R.id.weatherimage);
+        ImageView emolabel = (ImageView) findViewById(R.id.emoimage);
+        ImageView timelabel = (ImageView) findViewById(R.id.timeimage);
         Switch weatherSwitch = (Switch) findViewById(R.id.chk_weather);
         Switch timeSwitch = (Switch) findViewById(R.id.chk_time);
         Switch emotionSwitch = (Switch) findViewById(R.id.chk_emotion);
 
+        mConfigurationController = new SfeerConfigurationController(this);
+
+        if (getIntent().hasExtra("name")) {
+            config = mConfigurationController.get(getIntent().getStringExtra("name"));
+            weatherSwitch.setChecked(config.getWeather() != null);
+            timeSwitch.setChecked(config.getTime() != null);
+            emotionSwitch.setChecked(config.getEmotion() != null);
+        } else {
+            config = new SfeerConfiguration();
+        }
+
+        setTitle(config.getName() != null && !config.getName().isEmpty() ? config.getName() : "<no name>");
         mConfigurationController = new SfeerConfigurationController(this);
 
         if (getIntent().hasExtra("name")) {
@@ -60,6 +81,32 @@ public class SfeerSettingsActivity extends AppCompatActivity {
                 updateSettings();
             }
         });
+
+        weatherlabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SfeerSettingsActivity.this, WeatherSettingActivity.class);
+                intent.putExtra("name", config.getName());
+                startActivity(intent);
+            }
+        });
+
+        emolabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SfeerSettingsActivity.this, SelectMoodActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        timelabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SfeerSettingsActivity.this, TimeSettingActivity.class);
+                intent.putExtra("name", config.getName());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -86,7 +133,7 @@ public class SfeerSettingsActivity extends AppCompatActivity {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
             builder.setView(input);
 
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     config.setName(input.getText().toString());
@@ -94,7 +141,7 @@ public class SfeerSettingsActivity extends AppCompatActivity {
                     updateSettings();
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
@@ -122,7 +169,7 @@ public class SfeerSettingsActivity extends AppCompatActivity {
 
             mConfigurationController.save(config);
         } else {
-            Toast.makeText(this, "Name required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_name_required, Toast.LENGTH_SHORT).show();
         }
     }
 

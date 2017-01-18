@@ -5,8 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="buttontext">#5bdde6</color>
-    <color name="transparent">#275181</color>
-    <color name="tussenbalk">#b3012b67</color>
+    <color name="transparent">#73FFFFFF</color>
+    <color name="tussenbalk">#274d81</color>
     <color name="pushknop">#00ffffff</color>
+    <color name="light_gray">#aaaaaa</color>
 
 </resources>
