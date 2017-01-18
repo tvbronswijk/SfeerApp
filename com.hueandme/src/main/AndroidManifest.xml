@@ -108,6 +108,7 @@
         </receiver>
 
         <activity android:name=".WeatherSettingActivity"></activity>
+        <activity android:name=".TimeSettingActivity"></activity>
     </application>
 
 </manifest>
