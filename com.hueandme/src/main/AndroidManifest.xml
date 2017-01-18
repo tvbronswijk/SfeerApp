@@ -15,14 +15,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EntryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <activity android:name=".SearchActivity">
         </activity>
-        <activity android:name=".ConnectActivity"
+        <activity
+            android:name=".ConnectActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
@@ -73,9 +69,16 @@
         <activity android:name=".BeaconActivity">
         </activity>
 
-        <activity android:name=".SearchActivity"
+        <activity
+            android:name=".EntryActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
+
         <receiver
             android:name=".sfeer.EmotionController$EmotionReceiver"
             android:exported="false">

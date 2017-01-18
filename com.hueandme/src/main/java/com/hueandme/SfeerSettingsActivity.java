@@ -86,7 +86,7 @@ public class SfeerSettingsActivity extends AppCompatActivity {
             input.setInputType(InputType.TYPE_CLASS_TEXT);
             builder.setView(input);
 
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     config.setName(input.getText().toString());
@@ -94,7 +94,7 @@ public class SfeerSettingsActivity extends AppCompatActivity {
                     updateSettings();
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
@@ -122,7 +122,7 @@ public class SfeerSettingsActivity extends AppCompatActivity {
 
             mConfigurationController.save(config);
         } else {
-            Toast.makeText(this, "Name required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_name_required, Toast.LENGTH_SHORT).show();
         }
     }
 
