@@ -50,10 +50,10 @@
         </activity>
         <activity
             android:name=".SfeerSettingsActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".SfeerSettingsListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.hueandme.MainActivity"/>
+                android:value="com.hueandme.SfeerSettingsListActivity"/>
         </activity>
         <activity
             android:name=".SelectMoodActivity"
