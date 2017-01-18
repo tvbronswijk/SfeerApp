@@ -27,7 +27,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
 
-                activeImage.setText("@string/btn_happy");
+                activeImage.setText(getResources().getString(R.string.btn_happy));
                 EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Happy);
             }
         });
@@ -37,7 +37,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
-                activeImage.setText("@string/btn_angry");
+                activeImage.setText(getResources().getString(R.string.btn_angry));
                 EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Comfort);
             }
         });
@@ -47,7 +47,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
-                activeImage.setText("@string/btn_sad");
+                activeImage.setText(getResources().getString(R.string.btn_sad));
                 EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Peaceful);
             }
         });
@@ -57,7 +57,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
-                activeImage.setText("@string/btn_phlegmatic");
+                activeImage.setText(getResources().getString(R.string.btn_phlegmatic));
                 EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Optimistic);
             }
         });
@@ -67,7 +67,7 @@ public class SelectMoodActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextView activeImage = (TextView) findViewById(R.id.activeMood);
-                activeImage.setText("@string/btn_comfort");
+                activeImage.setText(getResources().getString(R.string.btn_comfort));
                 EmotionController.setCurrentEmotion(SelectMoodActivity.this, EmotionController.Emotion.Inspired);
             }
         });

@@ -19,30 +19,34 @@ public class SfeerSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sfeer_settings);
-        config = new SfeerConfiguration();
 
         Switch weatherSwitch = (Switch) findViewById(R.id.switch7);
+        Switch timeSwitch = (Switch) findViewById(R.id.switch5);
+        Switch emotionSwitch = (Switch) findViewById(R.id.switch6);
+
+        config = new Gson().fromJson(getSharedPreferences("config", 0).getString("setting", null), SfeerConfiguration.class);
+        weatherSwitch.setChecked(config.getSettings().contains(SfeerConfiguration.Setting.Weather));
+        timeSwitch.setChecked(config.getSettings().contains(SfeerConfiguration.Setting.Time));
+        emotionSwitch.setChecked(config.getSettings().contains(SfeerConfiguration.Setting.Emotion));
+
         weatherSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateSettings();
             }
         });
-        Switch timeSwitch = (Switch) findViewById(R.id.switch5);
         timeSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateSettings();
             }
         });
-        Switch emotionSwitch = (Switch) findViewById(R.id.switch6);
         emotionSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateSettings();
             }
         });
-
     }
 
 
