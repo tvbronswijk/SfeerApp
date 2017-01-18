@@ -24,10 +24,13 @@ import com.hueandme.sfeer.EmotionController;
 import com.hueandme.sfeer.TimeController;
 import com.hueandme.sfeer.WeatherController;
 
-import org.w3c.dom.Text;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Timer mTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +46,16 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        TextView tvEmotie = (TextView)findViewById(R.id.tvEmotie);
-        TextView tvWeer = (TextView)findViewById(R.id.tvWeer);
-        TextView tvTijd = (TextView)findViewById(R.id.tvTime);
+        TextView tvEmotie = (TextView) findViewById(R.id.tvEmotie);
+        TextView tvWeer = (TextView) findViewById(R.id.tvWeer);
+        final TextView tvTijd = (TextView) findViewById(R.id.tvTime);
 
         double longitude;
         double latitude;
         double weer = 0.0;
 
 
-        TimeController timeController = new TimeController();
+        final TimeController timeController = new TimeController();
         EmotionController.Emotion emotion = EmotionController.getCurrentEmotion(this);
         WeatherController weatherController = new WeatherController(this);
 
@@ -61,39 +64,30 @@ public class MainActivity extends AppCompatActivity
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             longitude = location.getLongitude();
             latitude = location.getLatitude();
-            weer = weatherController.getTemperature(latitude,longitude);
-        }
-        catch(SecurityException ex)
-        {
+            weer = weatherController.getTemperature(latitude, longitude);
+        } catch (SecurityException | NullPointerException ex) {
             System.out.println(ex.getMessage());
         }
 
 
-        if(emotion == EmotionController.Emotion.Comfort)
-        {
+        if (emotion == EmotionController.Emotion.Comfort) {
             tvEmotie.setText(getResources().getString(R.string.btn_angry));
         }
-        if(emotion == EmotionController.Emotion.Inspired)
-        {
+        if (emotion == EmotionController.Emotion.Inspired) {
             tvEmotie.setText(getResources().getString(R.string.btn_comfort));
         }
-        if(emotion == EmotionController.Emotion.Optimistic)
-        {
+        if (emotion == EmotionController.Emotion.Optimistic) {
             tvEmotie.setText(getResources().getString(R.string.btn_phlegmatic));
         }
-        if(emotion == EmotionController.Emotion.Peaceful)
-        {
+        if (emotion == EmotionController.Emotion.Peaceful) {
             tvEmotie.setText(getResources().getString(R.string.btn_sad));
         }
-        if(emotion == EmotionController.Emotion.Happy)
-        {
+        if (emotion == EmotionController.Emotion.Happy) {
             tvEmotie.setText(getResources().getString(R.string.btn_happy));
         }
 
-        tvTijd.setText(timeController.getTime().getTime().getHours() + ":" + timeController.getTime().getTime().getMinutes());
-        tvWeer.setText("°"+ weer + "");
-
-
+        updateTime(tvTijd, timeController);
+        tvWeer.setText(weer + "°C");
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -121,6 +115,23 @@ public class MainActivity extends AppCompatActivity
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             }
         }
+
+        mTimer = new Timer();
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateTime(tvTijd, timeController);
+                    }
+                });
+            }
+        }, 0, 1000);
+    }
+
+    private void updateTime(TextView tvTijd, TimeController timeController) {
+        tvTijd.setText(timeController.getTime().getTime().getHours() + ":" + timeController.getTime().getTime().getMinutes());
     }
 
     @Override

@@ -6,147 +6,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.hueandme.MainActivity"
-    tools:showIn="@layout/app_bar_main"
-    android:background="@drawable/background">
-    >
-
+    tools:showIn="@layout/app_bar_main">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="420dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/tussenbalk">
+            android:background="@color/tussenbalk"
+            android:orientation="vertical">
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/transparent">
+            android:background="@color/transparent"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/clockicon"
                 android:id="@+id/timeimage"
-                android:layout_weight="1"
-                android:layout_marginTop="30dp"/>
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="30dp"
+                app:srcCompat="@drawable/clockicon"/>
 
             <TextView
-                android:text="Tijd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/textView8"
-                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_gravity="center"/>
+                android:text="Tijd"
+                android:textColor="@color/white"
+                android:textSize="32sp"/>
 
             <TextView
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:text="TextView"
+                android:textSize="32sp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/tussenbalk">
+            android:background="@color/tussenbalk"
+            android:orientation="vertical">
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/transparent">
+            android:background="@color/transparent"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/smileicon"
                 android:id="@+id/emoimage"
-                android:layout_weight="1"
-                android:layout_marginTop="30dp"/>
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="30dp"
+                app:srcCompat="@drawable/smileicon"/>
 
             <TextView
-                android:text="Emotie"
+                android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView7"
-                android:textColor="@color/white"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_gravity="center"/>
+                android:text="Emotie"
+                android:textColor="@color/white"
+                android:textSize="32sp"/>
 
             <TextView
-                android:text="TextView"
+                android:id="@+id/tvEmotie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvEmotie"
                 android:layout_gravity="center"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:text="TextView"
+                android:textSize="38sp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/tussenbalk">
+            android:background="@color/tussenbalk"
+            android:orientation="vertical">
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/transparent">
+            android:background="@color/transparent"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/weathericon"
                 android:id="@+id/weatherimage"
-                android:layout_weight="1"
-                android:layout_marginTop="30dp"/>
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="30dp"
+                app:srcCompat="@drawable/weathericon"/>
 
             <TextView
-                android:text="Weer"
+                android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView6"
-                android:textColor="@color/white"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:layout_gravity="center"/>
+                android:text="Weer"
+                android:textColor="@color/white"
+                android:textSize="32sp"/>
 
             <TextView
-                android:text="TextView"
+                android:id="@+id/tvWeer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvWeer"
                 android:layout_gravity="center"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:text="TextView"
+                android:textSize="32sp"/>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/tussenbalk">
+            android:background="@color/tussenbalk"
+            android:orientation="vertical">
 
         </LinearLayout>
 
