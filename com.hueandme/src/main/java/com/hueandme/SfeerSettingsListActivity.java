@@ -27,6 +27,8 @@ public class SfeerSettingsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sfeer_settings_list);
 
+        setTitle(R.string.nav_personal_atmosphere);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
