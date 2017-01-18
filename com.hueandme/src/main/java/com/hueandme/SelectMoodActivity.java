@@ -21,7 +21,7 @@ public class SelectMoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selectmood);
         getSupportActionBar().setTitle("Moods");
         TextView activeImage = (TextView) findViewById(R.id.activeMood);
-        EmotionController.Emotion emotion = EmotionController.getCurrentEmotion(getApplicationContext());
+        EmotionController.Emotion emotion = EmotionController.getCurrentEmotion(this);
 
         if(emotion == EmotionController.Emotion.Comfort)
         {
