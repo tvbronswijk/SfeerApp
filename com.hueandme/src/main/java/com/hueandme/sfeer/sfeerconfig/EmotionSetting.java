@@ -4,34 +4,16 @@ package com.hueandme.sfeer.sfeerconfig;
  * Created by Tobi on 18-Jan-17.
  */
 
-public class EmotionSetting extends SfeerSetting {
+public interface EmotionSetting {
 
-    public EmotionSetting(){
-        colors.put("happy", new int[]{ 50, 50, 0});
-        colors.put("comfort", new int[]{ 0, 50, 0});
-        colors.put("peaceful", new int[]{ 0, 0, 50});
-        colors.put("optimistic", new int[]{ 75, 25, 0});
-        colors.put("inspired", new int[]{ 50, 0, 50});
-    }
+    int[] getHappy();
 
-    public int[] getHappy(){
-        return colors.get("happy");
-    }
+    int[] getComfort();
 
-    public int[] getComfort(){
-        return colors.get("comfort");
-    }
+    int[] getPeaceful();
 
-    public int[] getPeaceful(){
-        return colors.get("peaceful");
-    }
+    int[] getOptimistic();
 
-    public int[] getOptimistic(){
-        return colors.get("optimistic");
-    }
-
-    public int[] getInspired(){
-        return colors.get("inspired");
-    }
+    int[] getInspired();
 
 }

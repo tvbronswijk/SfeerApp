@@ -49,7 +49,7 @@
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch7"
+                android:id="@+id/chk_time"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginRight="20dp"/>
@@ -90,7 +90,7 @@
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch6"
+                android:id="@+id/chk_emotion"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginRight="20dp"/>
@@ -131,7 +131,7 @@
             <Switch
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/switch5"
+                android:id="@+id/chk_weather"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:layout_marginRight="20dp"/>

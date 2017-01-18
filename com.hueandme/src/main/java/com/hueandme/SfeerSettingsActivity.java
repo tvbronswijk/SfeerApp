@@ -1,33 +1,46 @@
 package com.hueandme;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.hueandme.sfeer.SfeerConfigurationController;
 import com.hueandme.sfeer.sfeerconfig.SfeerConfiguration;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SfeerSettingsActivity extends AppCompatActivity {
 
     private SfeerConfiguration config;
+    private SfeerConfigurationController mConfigurationController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sfeer_settings);
 
-        Switch weatherSwitch = (Switch) findViewById(R.id.switch7);
-        Switch timeSwitch = (Switch) findViewById(R.id.switch5);
-        Switch emotionSwitch = (Switch) findViewById(R.id.switch6);
+        Switch weatherSwitch = (Switch) findViewById(R.id.chk_weather);
+        Switch timeSwitch = (Switch) findViewById(R.id.chk_time);
+        Switch emotionSwitch = (Switch) findViewById(R.id.chk_emotion);
 
-        config = new Gson().fromJson(getSharedPreferences("config", 0).getString("setting", null), SfeerConfiguration.class);
-        weatherSwitch.setChecked(config.getSettings().contains(SfeerConfiguration.Setting.Weather));
-        timeSwitch.setChecked(config.getSettings().contains(SfeerConfiguration.Setting.Time));
-        emotionSwitch.setChecked(config.getSettings().contains(SfeerConfiguration.Setting.Emotion));
+        mConfigurationController = new SfeerConfigurationController(this);
+
+        if (getIntent().hasExtra("name")) {
+            config = mConfigurationController.get(getIntent().getStringExtra("name"));
+            weatherSwitch.setChecked(config.getWeather() != null);
+            timeSwitch.setChecked(config.getTime() != null);
+            emotionSwitch.setChecked(config.getEmotion() != null);
+        } else {
+            config = new SfeerConfiguration();
+        }
+
+        setTitle(config.getName() != null && !config.getName().isEmpty() ? config.getName() : "<no name>");
 
         weatherSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,17 +62,68 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.sfeer_settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_rename) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Name");
+
+            final EditText input = new EditText(this);
+
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
+
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    config.setName(input.getText().toString());
+                    setTitle(config.getName() != null && !config.getName().isEmpty() ? config.getName() : "<no name>");
+                    updateSettings();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void updateSettings() {
-        Switch weatherSwitch = (Switch) findViewById(R.id.switch5);
-        Switch emotionSwitch = (Switch) findViewById(R.id.switch6);
-        Switch timeSwitch = (Switch) findViewById(R.id.switch7);
+        if (config.getName() != null && !config.getName().isEmpty()) {
+            Switch weatherSwitch = (Switch) findViewById(R.id.chk_weather);
+            Switch emotionSwitch = (Switch) findViewById(R.id.chk_emotion);
+            Switch timeSwitch = (Switch) findViewById(R.id.chk_time);
 
-        config.setWeatherEnabled(weatherSwitch.isChecked());
-        config.setTimeEnabled(timeSwitch.isChecked());
-        config.setEmotionEnabled(emotionSwitch.isChecked());
+            config.setWeatherEnabled(weatherSwitch.isChecked());
+            config.setTimeEnabled(timeSwitch.isChecked());
+            config.setEmotionEnabled(emotionSwitch.isChecked());
 
-        getSharedPreferences("config", 0).edit().putString("setting", new Gson().toJson(config)).apply();
+            mConfigurationController.save(config);
+        } else {
+            Toast.makeText(this, "Name required", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
