@@ -8,5 +8,6 @@
     <color name="transparent">#73FFFFFF</color>
     <color name="tussenbalk">#274d81</color>
     <color name="pushknop">#00ffffff</color>
+    <color name="light_gray">#aaaaaa</color>
 
 </resources>
