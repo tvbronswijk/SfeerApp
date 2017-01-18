@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.hueandme.sfeer.EmotionController;
 import com.hueandme.sfeer.TimeController;
+import com.hueandme.sfeer.WeatherController;
 
 import org.w3c.dom.Text;
 
@@ -46,22 +47,51 @@ public class MainActivity extends AppCompatActivity
         TextView tvWeer = (TextView)findViewById(R.id.tvWeer);
         TextView tvTijd = (TextView)findViewById(R.id.tvTime);
 
-
-        TimeController timeController = new TimeController();
-        
-
-        tvEmotie.setText();
-        tvTijd.setText(timeController.getTime().getTime().getHours() + ":" + timeController.getTime().getTime().getMinutes());
-        tvWeer.setText();
-
-        Context context;
         double longitude;
         double latitude;
+        double weer = 0.0;
 
-        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
+
+        TimeController timeController = new TimeController();
+        EmotionController.Emotion emotion = EmotionController.getCurrentEmotion(this);
+        WeatherController weatherController = new WeatherController(this);
+
+        try {
+            LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            weer = weatherController.getTemperature(latitude,longitude);
+        }
+        catch(SecurityException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+
+
+        if(emotion == EmotionController.Emotion.Comfort)
+        {
+            tvEmotie.setText(getResources().getString(R.string.btn_angry));
+        }
+        if(emotion == EmotionController.Emotion.Inspired)
+        {
+            tvEmotie.setText(getResources().getString(R.string.btn_comfort));
+        }
+        if(emotion == EmotionController.Emotion.Optimistic)
+        {
+            tvEmotie.setText(getResources().getString(R.string.btn_phlegmatic));
+        }
+        if(emotion == EmotionController.Emotion.Peaceful)
+        {
+            tvEmotie.setText(getResources().getString(R.string.btn_sad));
+        }
+        if(emotion == EmotionController.Emotion.Happy)
+        {
+            tvEmotie.setText(getResources().getString(R.string.btn_happy));
+        }
+
+        tvTijd.setText(timeController.getTime().getTime().getHours() + ":" + timeController.getTime().getTime().getMinutes());
+
 
 
 
