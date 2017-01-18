@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         tvTijd.setText(timeController.getTime().getTime().getHours() + ":" + timeController.getTime().getTime().getMinutes());
+        tvWeer.setText("°"+ weer + "");
 
 
 
