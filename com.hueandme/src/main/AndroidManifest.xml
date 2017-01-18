@@ -46,6 +46,13 @@
                 android:value="com.hueandme.MainActivity"/>
         </activity>
         <activity
+            android:name=".SfeerSettingsListActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.hueandme.MainActivity"/>
+        </activity>
+        <activity
             android:name=".SfeerSettingsActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
