@@ -22,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ConnectActivity">
+        <activity android:name=".ConnectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".MainActivity"
@@ -65,6 +66,9 @@
         <activity android:name=".BeaconActivity">
         </activity>
 
+        <activity android:name=".SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <receiver
             android:name=".sfeer.EmotionController$EmotionReceiver"
             android:exported="false">
