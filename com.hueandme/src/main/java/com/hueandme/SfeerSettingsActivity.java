@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +31,9 @@ public class SfeerSettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sfeer_settings);
 
-        TextView weatherlabel = (TextView)findViewById(R.id.textView6);
+        ImageView weatherlabel = (ImageView) findViewById(R.id.weatherimage);
+        ImageView emolabel = (ImageView) findViewById(R.id.emoimage);
+        ImageView timelabel = (ImageView) findViewById(R.id.timeimage);
         Switch weatherSwitch = (Switch) findViewById(R.id.chk_weather);
         Switch timeSwitch = (Switch) findViewById(R.id.chk_time);
         Switch emotionSwitch = (Switch) findViewById(R.id.chk_emotion);
@@ -83,6 +86,23 @@ public class SfeerSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SfeerSettingsActivity.this, WeatherSettingActivity.class);
+                intent.putExtra("name", config.getName());
+                startActivity(intent);
+            }
+        });
+
+        emolabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SfeerSettingsActivity.this, SelectMoodActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        timelabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SfeerSettingsActivity.this, TimeSettingActivity.class);
                 intent.putExtra("name", config.getName());
                 startActivity(intent);
             }
