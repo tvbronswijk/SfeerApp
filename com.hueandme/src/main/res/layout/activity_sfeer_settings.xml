@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:srcCompat="@drawable/clockicon"
-                android:id="@+id/imageView2"
+                android:id="@+id/timeimage"
                 android:layout_weight="1"
                 android:layout_marginTop="30dp"/>
 
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:srcCompat="@drawable/smileicon"
-                android:id="@+id/imageView5"
+                android:id="@+id/emoimage"
                 android:layout_weight="1"
                 android:layout_marginTop="30dp"/>
 
@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:srcCompat="@drawable/weathericon"
-                android:id="@+id/imageView4"
+                android:id="@+id/weatherimage"
                 android:layout_weight="1"
                 android:layout_marginTop="30dp"/>
 

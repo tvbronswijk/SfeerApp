@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.hueandme"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hueandme">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -19,95 +19,93 @@
             android:name=".EntryActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ConnectActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.hueandme.MainActivity"/>
+                android:value="com.hueandme.MainActivity" />
         </activity>
         <activity
             android:name=".SfeerSettingsListActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.hueandme.MainActivity"/>
+                android:value="com.hueandme.MainActivity" />
         </activity>
         <activity
             android:name=".SfeerSettingsActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.hueandme.MainActivity"/>
+                android:value="com.hueandme.MainActivity" />
         </activity>
         <activity
             android:name=".SelectMoodActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.hueandme.MainActivity"/>
+                android:value="com.hueandme.MainActivity" />
         </activity>
 
         <service
             android:name=".service.beacon.BeaconService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <service
             android:name=".service.hue.HueService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
 
-        <activity android:name=".BeaconActivity"></activity>
-
-        <activity android:name=".SearchActivity">
-        </activity>
+        <activity android:name=".BeaconActivity" />
+        <activity android:name=".SearchActivity"></activity>
 
         <receiver
             android:name=".sfeer.EmotionController$EmotionReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="Happy"/>
+                <action android:name="Happy" />
             </intent-filter>
             <intent-filter>
-                <action android:name="Sad"/>
+                <action android:name="Sad" />
             </intent-filter>
             <intent-filter>
-                <action android:name="Angry"/>
+                <action android:name="Angry" />
             </intent-filter>
             <intent-filter>
-                <action android:name="Tranquil"/>
+                <action android:name="Tranquil" />
             </intent-filter>
             <intent-filter>
-                <action android:name="Phlegmatic"/>
+                <action android:name="Phlegmatic" />
             </intent-filter>
             <intent-filter>
-                <action android:name="Comfortable"/>
+                <action android:name="Comfortable" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".service.hue.HueService$WifiReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".WeatherSettingActivity"></activity>
+        <activity android:name=".WeatherSettingActivity" />
+        <activity android:name=".TimeSettingActivity"></activity>
     </application>
 
 </manifest>
